@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore Bastar - Chalgunbe Bastar</title>
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="explore.html" class="nav-link active">Explore</a></li>
+            <li><a href="plan-trip.html" class="nav-link">Plan Trip</a></li>
+            <li><a href="festivals.html" class="nav-link">Festivals</a></li>
+            <li><a href="gallery.html" class="nav-link">Gallery</a></li>
+            <li><a href="transport.html" class="nav-link">Transport</a></li>
+            <li><a href="help.html" class="nav-link">Help</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+        </ul>
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
+        <div class="nav-actions" id="navActions">
+            <button class="lang-toggle" title="Switch to Hindi">
+                <i class="fas fa-globe"></i> हिंदी
+            </button>
+            <a href="login.html" class="sign-in auth-link">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link">Sign Up</a>
+        </div>
+    </nav>
+    <div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
+    <div class="nav-drawer" id="navDrawer">
+        <div class="nav-drawer-header">
+            <span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span>
+            <button type="button" class="nav-drawer-close" id="navDrawerClose" aria-label="Close">&times;</button>
+        </div>
+        <ul class="nav-drawer-links">
+            <li><a href="index.html" class="drawer-link">Home</a></li>
+            <li><a href="explore.html" class="drawer-link">Explore</a></li>
+            <li><a href="plan-trip.html" class="drawer-link">Plan Trip</a></li>
+            <li><a href="festivals.html" class="drawer-link">Festivals</a></li>
+            <li><a href="gallery.html" class="drawer-link">Gallery</a></li>
+            <li><a href="transport.html" class="drawer-link">Transport</a></li>
+            <li><a href="help.html" class="drawer-link">Help</a></li>
+            <li><a href="contact.html" class="drawer-link">Contact</a></li>
+        </ul>
+    </div>
+
+    <main class="page-main">
+        <!-- Hero Section -->
+        <section class="explore-hero">
+            <div class="explore-hero-content">
+                <h1>Explore Bastar</h1>
+                <p>Discover the enchanting beauty of Chhattisgarh's cultural heartland through<br>interactive exploration</p>
+            </div>
+        </section>
+
+        <!-- Filter Section -->
+        <section class="explore-filters">
+            <div class="filter-container">
+                <button class="filter-btn filter-btn-active" data-filter="all">
+                    <i class="fas fa-map-marked-alt"></i> All
+                </button>
+                <button class="filter-btn" data-filter="nature">
+                    <i class="fas fa-tree"></i> Nature <span class="filter-count">3</span>
+                </button>
+                <button class="filter-btn" data-filter="history">
+                    <i class="fas fa-landmark"></i> History <span class="filter-count">2</span>
+                </button>
+                <button class="filter-btn" data-filter="spiritual">
+                    <i class="fas fa-om"></i> Spiritual <span class="filter-count">1</span>
+                </button>
+                <button class="filter-btn" data-filter="hidden">
+                    <i class="fas fa-gem"></i> Hidden Gems <span class="filter-count">1</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Places Grid -->
+        <section class="explore-content">
+            <div class="explore-places-grid">
+                <!-- Card 1 -->
+                <div class="explore-place-card" data-category="nature">
+                    <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1621682333008-0130db99806e?w=600&q=80');">
+                        <span class="category-badge badge-nature">Nature</span>
+                        <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
+                    </div>
+                    <div class="explore-card-content">
+                        <h3>Chitrakote Waterfall</h3>
+                        <p>India's Niagara Falls with stunning natural beauty and panoramic views perfect for photography</p>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">Rated 4.8 by 349 visitors</span>
+                        </div>
+                        <a href="location-detail.html?id=chitrakote" class="explore-btn">
+                            <i class="fas fa-map-marker-alt"></i> Explore More
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="explore-place-card" data-category="spiritual">
+                    <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=600&q=80');">
+                        <span class="category-badge badge-spiritual">Spiritual</span>
+                        <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
+                    </div>
+                    <div class="explore-card-content">
+                        <h3>Danteshwari Temple</h3>
+                        <p>Ancient temple dedicated to Goddess Danteshwari, spiritual center of Bastar region</p>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <span class="rating-text">Rated 4.7 by 280 visitors</span>
+                        </div>
+                        <a href="location-detail.html?id=danteshwari" class="explore-btn">
+                            <i class="fas fa-map-marker-alt"></i> Explore More
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="explore-place-card" data-category="nature">
+                    <div class="explore-card-image" style="background-image: url('https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=600&q=80');">
+                        <span class="category-badge badge-nature">Nature</span>
+                        <span class="verified-badge"><i class="fas fa-check-circle"></i> Verified</span>
+                    </div>
+                    <div class="explore-card-content">
+                        <h3>Kanger Valley National Park</h3>
+                        <p>Biodiversity hotspot with limestone caves, waterfalls and exotic wildlife in pristine forest</p>
+                        <div class="card-rating">
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                            <span class="rating-text">Rated 4.6 by 156 visitors</span>
+                        </div>
+                        <a href="location-detail.html?id=kanger" class="explore-btn">
+                            <i class="fas fa-map-marker-alt"></i> Explore More
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bottom CTA -->
+        <section class="explore-cta">
+            <div class="explore-cta-content">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Let us help you plan the perfect Bastar adventure with personalized<br>itineraries</p>
+                <div class="explore-cta-buttons">
+                    <a href="plan-trip.html" class="btn btn-white-solid">Plan Your Trip</a>
+                    <a href="contact.html" class="btn btn-white-outline">Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div>
+        <p>Feel Bastar, Explore Beyond</p>
+        <p class="copyright">© 2024 ChalgunbeBastar.com</p>
+    </footer>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/explore.js"></script>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - ConnectHub</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2 class="logo-text">ConnectHub</h2>
+                <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">×</button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <rect x="3" y="3" width="7" height="7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="14" y="3" width="7" height="7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="14" y="14" width="7" height="7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <rect x="3" y="14" width="7" height="7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="profile.html" class="nav-item active">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Profile</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="nav-item logout-btn" id="logoutBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="header-actions">
+                    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                        <span class="sun-icon">☀️</span>
+                        <span class="moon-icon">🌙</span>
+                    </button>
+                    <div class="user-menu">
+                        <div class="user-avatar" id="userAvatar">
+                            <span id="userInitials">U</span>
+                        </div>
+                        <span class="user-name" id="userName">User</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="profile-container">
+                    <div class="page-header">
+                        <h1 class="page-title">Profile Settings</h1>
+                        <p class="page-subtitle">Manage your account information</p>
+                    </div>
+
+                    <!-- Profile Section -->
+                    <div class="profile-section glass-card">
+                        <div class="section-header">
+                            <h2 class="section-title">Personal Information</h2>
+                        </div>
+                        
+                        <div class="profile-avatar-section">
+                            <div class="profile-avatar-container">
+                                <div class="profile-avatar-large" id="profileAvatarLarge">
+                                    <span id="profileInitials">U</span>
+                                </div>
+                                <button class="btn btn-secondary btn-small" id="uploadAvatarBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                    <span>Upload Photo</span>
+                                </button>
+                                <p class="avatar-hint">JPG, PNG or GIF. Max size 2MB</p>
+                            </div>
+                        </div>
+
+                        <form id="profileForm" class="profile-form">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="profileName" class="form-label">Full Name</label>
+                                    <input 
+                                        type="text" 
+                                        id="profileName" 
+                                        class="form-input" 
+                                        placeholder="Your full name"
+                                        required
+                                    >
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="profileEmail" class="form-label">Email Address</label>
+                                    <input 
+                                        type="email" 
+                                        id="profileEmail" 
+                                        class="form-input" 
+                                        placeholder="your@email.com"
+                                        readonly
+                                    >
+                                    <span class="form-hint">Email cannot be changed</span>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="updateProfileBtn">
+                                <span>Update Profile</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Password Section -->
+                    <div class="profile-section glass-card">
+                        <div class="section-header">
+                            <h2 class="section-title">Change Password</h2>
+                        </div>
+
+                        <form id="passwordForm" class="profile-form">
+                            <div class="form-group">
+                                <label for="currentPassword" class="form-label">Current Password</label>
+                                <div class="password-input">
+                                    <input 
+                                        type="password" 
+                                        id="currentPassword" 
+                                        class="form-input" 
+                                        placeholder="Enter current password"
+                                        required
+                                    >
+                                    <button type="button" class="password-toggle" data-target="currentPassword">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="newPassword" class="form-label">New Password</label>
+                                <div class="password-input">
+                                    <input 
+                                        type="password" 
+                                        id="newPassword" 
+                                        class="form-input" 
+                                        placeholder="Enter new password"
+                                        required
+                                    >
+                                    <button type="button" class="password-toggle" data-target="newPassword">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="password-strength" id="passwordStrength">
+                                    <div class="strength-bar">
+                                        <div class="strength-fill" id="strengthFill"></div>
+                                    </div>
+                                    <span class="strength-text" id="strengthText"></span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+                                <div class="password-input">
+                                    <input 
+                                        type="password" 
+                                        id="confirmNewPassword" 
+                                        class="form-input" 
+                                        placeholder="Confirm new password"
+                                        required
+                                    >
+                                    <button type="button" class="password-toggle" data-target="confirmNewPassword">
+                                        <svg class="eye-icon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary" id="updatePasswordBtn">
+                                <span>Update Password</span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Danger Zone -->
+                    <div class="profile-section glass-card danger-zone">
+                        <div class="section-header">
+                            <h2 class="section-title danger-text">Danger Zone</h2>
+                        </div>
+
+                        <div class="danger-content">
+                            <div class="danger-info">
+                                <h3 class="danger-title">Delete Account</h3>
+                                <p class="danger-description">Once you delete your account, there is no going back. Please be certain.</p>
+                            </div>
+                            <button class="btn btn-danger" id="deleteAccountBtn">
+                                <span>Delete Account</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Delete Account Modal -->
+    <div id="deleteAccountModal" class="modal">
+        <div class="modal-content glass-card">
+            <h3 class="modal-title">Delete Account</h3>
+            <p class="modal-text">Are you absolutely sure you want to delete your account? This action is permanent and cannot be undone. All your data will be lost.</p>
+            <form id="confirmDeleteForm" class="modal-form">
+                <div class="form-group">
+                    <label for="confirmPassword" class="form-label">Enter your password to confirm</label>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        class="form-input" 
+                        placeholder="Your password"
+                        required
+                    >
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelDeleteAccount">Cancel</button>
+                    <button type="submit" class="btn btn-danger" id="confirmDeleteAccount">Delete My Account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"
+            onerror="console.error('CDN 1 failed, trying fallback...'); this.onerror=null; this.src='https://unpkg.com/@supabase/supabase-js@2.39.3/dist/umd/supabase.js';"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chलगुंबे बस्तर</title>
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="nav-link active">होम</a></li>
+            <li><a href="explore.html" class="nav-link">अन्वेषण</a></li>
+            <li><a href="plan-trip.html" class="nav-link">यात्रा योजना</a></li>
+            <li><a href="festivals.html" class="nav-link">त्योहार</a></li>
+            <li><a href="gallery.html" class="nav-link">गैलरी</a></li>
+            <li><a href="transport.html" class="nav-link">परिवहन</a></li>
+            <li><a href="help.html" class="nav-link">सहायता</a></li>
+            <li><a href="contact.html" class="nav-link">संपर्क</a></li>
+        </ul>
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+            <span class="nav-toggle-bar"></span>
+        </button>
+        <div class="nav-actions" id="navActions">
+            <a href="#" class="lang"><i class="fas fa-globe"></i> English</a>
+            <a href="login.html" class="sign-in auth-link">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link">Sign Up</a>
+        </div>
+    </nav>
+
+    <div class="nav-drawer-overlay" id="navDrawerOverlay" aria-hidden="true"></div>
+    <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+        <div class="nav-drawer-header">
+            <span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span>
+            <button type="button" class="nav-drawer-close" id="navDrawerClose" aria-label="Close menu">&times;</button>
+        </div>
+        <ul class="nav-drawer-links">
+            <li><a href="index.html" class="drawer-link">होम</a></li>
+            <li><a href="explore.html" class="drawer-link">अन्वेषण</a></li>
+            <li><a href="plan-trip.html" class="drawer-link">यात्रा योजना</a></li>
+            <li><a href="festivals.html" class="drawer-link">त्योहार</a></li>
+            <li><a href="gallery.html" class="drawer-link">गैलरी</a></li>
+            <li><a href="transport.html" class="drawer-link">परिवहन</a></li>
+            <li><a href="help.html" class="drawer-link">सहायता</a></li>
+            <li><a href="contact.html" class="drawer-link">संपर्क</a></li>
+        </ul>
+    </div>
+
+    <!-- 2. Hero Section: slideshow with auto-rotate + next/prev, images from assets -->
+    <section class="hero hero-slideshow" id="hero">
+        <div class="hero-slides">
+            <div class="hero-slide active" data-slide="0" style="background-image: url('assets/danteshwari-temple.jpg');"></div>
+            <div class="hero-slide" data-slide="1" style="background-image: url('assets/barsur-temples.jpg');"></div>
+            <div class="hero-slide" data-slide="2" style="background-image: url('assets/chitrakote-hero.jpg');"></div>
+            <div class="hero-slide" data-slide="2" style="background-image: url('assets/kanger-valley.jpg');"></div>
+             <div class="hero-slide" data-slide="2" style="background-image: url('assets/haat-bazaar.jpg');"></div>
+
+
+        </div>
+        <div class="hero-overlay"></div>
+        <button type="button" class="hero-slide-btn hero-slide-prev" id="heroSlidePrev" aria-label="Previous image">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button type="button" class="hero-slide-btn hero-slide-next" id="heroSlideNext" aria-label="Next image">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+        <div class="hero-content" id="heroContent">
+            <h1 class="hero-title">Chलगुंबे बस्तर</h1>
+            <h2 class="hero-subtitle">Feel Bastar.<br>Explore Beyond.</h2>
+            <p class="hero-text">Discover the hidden gems, rich culture, and natural wonders<br>of Chhattisgarh's most enchanting destination</p>
+            <div class="hero-buttons">
+                <a href="#top-places" class="btn btn-orange hero-cta-primary">Start Exploring <i class="fas fa-arrow-right"></i></a>
+                <a href="gallery.html" class="btn btn-outline hero-cta-secondary"><i class="far fa-play-circle"></i> Watch Stories</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Top Places: hover shows Explore button, click goes to location detail -->
+    <section class="top-places" id="top-places">
+        <div class="section-header">
+            <h2>Top Places to Visit in Bastar</h2>
+            <p>Explore the most breathtaking destinations that showcase Bastar's natural beauty and cultural heritage</p>
+        </div>
+        <div class="places-grid">
+            <div class="place-card">
+                <div class="place-card-img-wrap">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1621682333008-0130db99806e?w=600&q=80');"></div>
+                    <div class="place-card-overlay">
+                        <a href="location-detail.html?id=chitrakote" class="btn btn-orange place-explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Chitrakote Waterfall</h3>
+                    <p>The "Niagara of India" – a magnificent waterfall cascading from 90 feet.</p>
+                </div>
+            </div>
+            <div class="place-card">
+                <div class="place-card-img-wrap">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=600&q=80');"></div>
+                    <div class="place-card-overlay">
+                        <a href="location-detail.html?id=danteshwari" class="btn btn-orange place-explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Danteshwari Temple</h3>
+                    <p>Sacred temple of Goddess Danteshwari, the presiding deity of Bastar.</p>
+                </div>
+            </div>
+            <div class="place-card">
+                <div class="place-card-img-wrap">
+                    <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=600&q=80');"></div>
+                    <div class="place-card-overlay">
+                        <a href="location-detail.html?id=kanger" class="btn btn-orange place-explore-btn">Explore <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Kanger Valley National Park</h3>
+                    <p>Pristine wilderness with unique caves, waterfalls and diverse wildlife.</p>
+                </div>
+            </div>
+        </div>
+        <div class="section-cta">
+            <a href="explore.html" class="btn btn-orange">View All Places <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- 4. Plan Your Perfect Journey: CTAs to plan trip, explore, festivals, etc. -->
+    <section class="plan-journey" id="plan-journey">
+        <div class="section-header">
+            <h2>Plan Your Perfect Bastar Journey</h2>
+            <p>Everything you need to explore and experience the magic of Bastar</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon feature-icon-green">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3>Plan Your Trip</h3>
+                <p>Get personalized itineraries for your Bastar adventure</p>
+                <a href="plan-trip.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon feature-icon-orange">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <h3>Festival Calendar</h3>
+                <p>Join colorful tribal festivals and cultural celebrations</p>
+                <a href="festivals.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon feature-icon-orange">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <h3>Photo Gallery</h3>
+                <p>Browse stunning visuals of Bastar's beauty</p>
+                <a href="gallery.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon feature-icon-green">
+                    <i class="fas fa-bus"></i>
+                </div>
+                <h3>Transportation</h3>
+                <p>Book reliable rides for comfortable travel</p>
+                <a href="transport.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon feature-icon-orange">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3>Need Help?</h3>
+                <p>Get assistance and emergency contact information</p>
+                <a href="help.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon feature-icon-green">
+                    <i class="fas fa-comment-dots"></i>
+                </div>
+                <h3>Contact Us</h3>
+                <p>Reach out for inquiries and feedback</p>
+                <a href="contact.html" class="learn-more">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Ready to Explore: final CTA -->
+    <section class="cta-banner" id="cta-banner">
+        <div class="cta-banner-content">
+            <h2>Ready to Explore Bastar?</h2>
+            <p>Join thousands of travelers who have discovered the magic of<br>Chhattisgarh's cultural heartland</p>
+            <div class="cta-buttons">
+                <a href="explore.html" class="btn btn-cta-solid">Start Exploring <i class="fas fa-arrow-right"></i></a>
+                <a href="plan-trip.html" class="btn btn-cta-outline">Plan Your Trip</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Footer -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-logo">
+                <span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span>
+            </div>
+            <p class="footer-tagline">Feel Bastar, Explore Beyond – बस्तर का अनुभव करें। आगे की खोज करें</p>
+            <nav class="footer-links">
+                <a href="explore.html">Explore</a>
+                <a href="festivals.html">Festivals</a>
+                <a href="plan-trip.html">Plan Trip</a>
+                <a href="transport.html">Transport</a>
+                <a href="gallery.html">Gallery</a>
+                <a href="help.html">Help</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <div class="footer-lang">
+                <button type="button" class="lang-toggle" id="footerLangToggle" aria-label="Language">
+                    <i class="fas fa-globe"></i> <span>English</span>
+                </button>
+            </div>
+            <p class="copyright">© 2024 ChalgunbeBastar.com. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js" onerror="this.onerror=null;this.src='https://unpkg.com/@supabase/supabase-js@2.39.3/dist/umd/supabase.js';"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/landing.js"></script>
+    <script src="js/components.js"></script>
+</body>
+</html>

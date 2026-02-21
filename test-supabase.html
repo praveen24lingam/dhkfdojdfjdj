@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supabase Loading Test</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            padding: 20px;
+            background: #1a1a1a;
+            color: #00ff00;
+        }
+        .test-section {
+            margin: 20px 0;
+            padding: 15px;
+            background: #2a2a2a;
+            border-left: 4px solid #00ff00;
+        }
+        .success { color: #00ff00; }
+        .error { color: #ff4444; }
+        .warning { 
+            color: #ffaa00; 
+        }
+        pre {
+            background: #0a0a0a;
+            padding: 10px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Supabase CDN Loading Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Status</h2>
+        <div id="status">⏳ Loading Supabase CDN...</div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Library Structure</h2>
+        <pre id="structure"></pre>
+    </div>
+    
+    <div class="test-section">
+        <h2>Initialization Test</h2>
+        <pre id="init-result"></pre>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js" 
+            onerror="handleCDNError(this)"></script>
+    
+    <script>
+        // CDN error handler
+        function handleCDNError(script) {
+            console.error('Primary CDN failed, trying fallback...');
+            script.onerror = null;
+            script.src = 'https://unpkg.com/@supabase/supabase-js@2.39.3/dist/umd/supabase.js';
+        }
+
+        // Wait for library to load
+        let checkAttempts = 0;
+        const checkInterval = setInterval(() => {
+            checkAttempts++;
+            
+            if (typeof window.supabase !== 'undefined') {
+                clearInterval(checkInterval);
+                runTests();
+            } else if (checkAttempts > 30) {
+                clearInterval(checkInterval);
+                showError();
+            }
+        }, 100);
+
+        function runTests() {
+            const status = document.getElementById('status');
+            const structure = document.getElementById('structure');
+            const initResult = document.getElementById('init-result');
+
+            // Test 1: Check if loaded
+            status.className = 'success';
+            status.innerHTML = '✅ Supabase library loaded successfully!';
+
+            // Test 2: Show structure
+            const structureInfo = {
+                'typeof window.supabase': typeof window.supabase,
+                'is function': typeof window.supabase === 'function',
+                'has createClient': typeof window.supabase?.createClient === 'function',
+                'has default': typeof window.supabase?.default !== 'undefined',
+                'keys': Object.keys(window.supabase || {}).slice(0, 20)
+            };
+            structure.textContent = JSON.stringify(structureInfo, null, 2);
+
+            // Test 3: Try to initialize
+            try {
+                const SUPABASE_URL = 'https://ujadsysjxizlrayajrjq.supabase.co';
+                const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVqYWRzeXNqeGl6bHJheWFqcmpxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2NjAyMjYsImV4cCI6MjA4NzIzNjIyNn0.Wq0jcCWMvLrTcYnzIjlYaGWw0YJY4Hbfl9dRaNeeI9k';
+
+                let client;
+                if (typeof window.supabase.createClient === 'function') {
+                    client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    initResult.innerHTML = '<span class="success">✅ Client created using: window.supabase.createClient()</span>';
+                } else if (typeof window.supabase === 'function') {
+                    client = window.supabase(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    initResult.innerHTML = '<span class="success">✅ Client created using: window.supabase() as function</span>';
+                } else if (window.supabase.default && typeof window.supabase.default.createClient === 'function') {
+                    client = window.supabase.default.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                    initResult.innerHTML = '<span class="success">✅ Client created using: window.supabase.default.createClient()</span>';
+                } else {
+                    throw new Error('No valid initialization method found');
+                }
+
+                initResult.innerHTML += '\n\nClient structure:\n' + JSON.stringify({
+                    hasAuth: typeof client?.auth !== 'undefined',
+                    hasFrom: typeof client?.from === 'function',
+                    hasStorage: typeof client?.storage !== 'undefined',
+                    keys: Object.keys(client || {}).slice(0, 10)
+                }, null, 2);
+
+            } catch (error) {
+                initResult.innerHTML = '<span class="error">❌ Initialization failed: ' + error.message + '</span>';
+                console.error('Init error:', error);
+            }
+        }
+
+        function showError() {
+            const status = document.getElementById('status');
+            const structure = document.getElementById('structure');
+            
+            status.className = 'error';
+            status.innerHTML = '❌ Failed to load Supabase library after 3 seconds';
+            
+            structure.innerHTML = '<span class="error">Library not available in window object</span>\n\n' + 
+                'Available window properties:\n' +
+                JSON.stringify(
+                    Object.keys(window).filter(k => k.toLowerCase().includes('supabase')),
+                    null,
+                    2
+                );
+        }
+
+        // Also log to console
+        console.log('Test page loaded. Checking for Supabase...');
+        setTimeout(() => {
+            console.log('After 1 second - window.supabase:', typeof window.supabase);
+        }, 1000);
+    </script>
+</body>
+</html>

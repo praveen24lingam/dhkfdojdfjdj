@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location - Chलगुंबे बस्तर</title>
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">होम</a></li>
+            <li><a href="explore.html" class="nav-link active">अन्वेषण</a></li>
+            <li><a href="plan-trip.html" class="nav-link">यात्रा योजना</a></li>
+            <li><a href="festivals.html" class="nav-link">त्योहार</a></li>
+            <li><a href="gallery.html" class="nav-link">गैलरी</a></li>
+            <li><a href="transport.html" class="nav-link">परिवहन</a></li>
+            <li><a href="help.html" class="nav-link">सहायता</a></li>
+            <li><a href="contact.html" class="nav-link">संपर्क</a></li>
+        </ul>
+        <button type="button" class="nav-toggle" id="navToggle" aria-label="Open menu"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
+        <div class="nav-actions" id="navActions">
+            <a href="login.html" class="sign-in auth-link">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link">Sign Up</a>
+        </div>
+    </nav>
+    <div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
+    <div class="nav-drawer" id="navDrawer">
+        <div class="nav-drawer-header">
+            <span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span>
+            <button type="button" class="nav-drawer-close" id="navDrawerClose">&times;</button>
+        </div>
+        <ul class="nav-drawer-links">
+            <li><a href="index.html" class="drawer-link">होम</a></li>
+            <li><a href="explore.html" class="drawer-link">अन्वेषण</a></li>
+            <li><a href="plan-trip.html" class="drawer-link">यात्रा योजना</a></li>
+            <li><a href="festivals.html" class="drawer-link">त्योहार</a></li>
+            <li><a href="gallery.html" class="drawer-link">गैलरी</a></li>
+            <li><a href="transport.html" class="drawer-link">परिवहन</a></li>
+            <li><a href="help.html" class="drawer-link">सहायता</a></li>
+            <li><a href="contact.html" class="drawer-link">संपर्क</a></li>
+        </ul>
+    </div>
+
+    <main class="page-main">
+        <section class="location-hero" id="locationHero">
+            <div class="location-hero-bg"></div>
+            <div class="location-hero-content">
+                <h1 id="locationTitle">Chitrakote Waterfall</h1>
+                <div class="rating-badge"><i class="fas fa-star"></i> <span id="locationRating">4.8</span></div>
+            </div>
+        </section>
+        <section class="content-section location-detail-content">
+            <div class="detail-tabs">
+                <button type="button" class="detail-tab active" data-tab="overview">Overview</button>
+                <button type="button" class="detail-tab" data-tab="gallery">Gallery</button>
+                <button type="button" class="detail-tab" data-tab="reviews">Reviews</button>
+            </div>
+            <div class="detail-panels">
+                <div class="detail-panel active" id="panel-overview">
+                    <p id="locationDescription">Chitrakote Falls is often called the "Niagara Falls of India". The waterfall cascades from a height of about 90 feet and is at its fullest during the monsoon. A must-visit in Bastar.</p>
+                </div>
+                <div class="detail-panel" id="panel-gallery">
+                    <div class="gallery-grid gallery-grid-small">
+                        <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1621682333008-0130db99806e?w=400&q=80');"></div>
+                        <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1596423735880-5c6a5bb1fb21?w=400&q=80');"></div>
+                        <div class="gallery-item" style="background-image: url('https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=400&q=80');"></div>
+                    </div>
+                </div>
+                <div class="detail-panel" id="panel-reviews">
+                    <p class="text-light">Reviews will appear here.</p>
+                </div>
+            </div>
+            <div class="booking-cta">
+                <button type="button" class="btn btn-orange btn-large" id="openBookingBtn">Book Visit</button>
+            </div>
+        </section>
+    </main>
+
+    <div class="booking-form-overlay" id="bookingFormOverlay">
+        <div class="booking-form-modal" id="bookingFormModal">
+            <h3>Book Your Visit</h3>
+            <form id="bookingForm" class="booking-form">
+                <label>Date <input type="date" name="date" required></label>
+                <label>Visitors <input type="number" name="visitors" min="1" max="20" value="1" required></label>
+                <label>Name <input type="text" name="name" required></label>
+                <label>Email <input type="email" name="email" required></label>
+                <label>Phone <input type="tel" name="phone" required></label>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="closeBookingBtn">Cancel</button>
+                    <button type="submit" class="btn btn-orange">Proceed to Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="payment-dialog-overlay" id="paymentDialogOverlay">
+        <div class="payment-dialog" id="paymentDialog">
+            <h3>Confirm & Pay</h3>
+            <p class="payment-summary" id="paymentSummary">Visit for 1 person</p>
+            <button type="button" class="btn btn-orange btn-large" id="confirmPaymentBtn">Confirm Payment</button>
+            <button type="button" class="btn btn-secondary" id="closePaymentBtn">Cancel</button>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <footer class="site-footer">
+        <div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div>
+        <p>Feel Bastar, Explore Beyond</p>
+        <p class="copyright">© 2024 ChalgunbeBastar.com</p>
+    </footer>
+    <script src="js/auth.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/location-detail.js"></script>
+</body>
+</html>

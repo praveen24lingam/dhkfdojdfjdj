@@ -1,0 +1,1059 @@
+<!-- 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Trip - Chalgunbe Bastar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo a {
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .text-green { color: #2e7d32; }
+        .text-orange { color: #e87c35; }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #e87c35;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .lang-toggle, .auth-link {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .btn-green {
+            background-color: #2e7d32;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+        }
+
+        /* Hero Section */
+        .plan-trip-hero {
+            background: linear-gradient(90deg, #d2e0d5 0%, #f9f1eb 50%, #f6e3d5 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .plan-trip-hero h1 {
+            font-size: 2.8rem;
+            color: #222;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        .plan-trip-hero p {
+            color: #666;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* Main Content Container */
+        .plan-trip-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        .plan-trip-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .plan-trip-header h2 {
+            font-size: 2.2rem;
+            margin: 0 0 5px 0;
+            color: #222;
+        }
+        .plan-trip-subtitle {
+            color: #e87c35;
+            font-size: 1.4rem;
+            margin: 0 0 15px 0;
+            font-weight: 600;
+        }
+        .plan-trip-header p {
+            color: #777;
+            font-size: 1rem;
+        }
+
+        /* Two Column Layout */
+        .plan-trip-content {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            align-items: stretch;
+            flex-wrap: wrap;
+        }
+
+        /* Left Column: Trip Wizard Card */
+        .trip-wizard-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            flex: 1;
+            min-width: 320px;
+            max-width: 450px;
+            border: 1px solid #f0f0f0;
+        }
+        .trip-wizard-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 25px;
+            color: #333;
+        }
+        .trip-wizard-header i {
+            color: #e87c35;
+            font-size: 1.2rem;
+        }
+        .trip-wizard-header h3 {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .wizard-section {
+            margin-bottom: 25px;
+        }
+        .wizard-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: #444;
+        }
+
+        /* Days Buttons */
+        .day-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .day-btn {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            color: #444;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .day-btn:hover {
+            border-color: #e87c35;
+            color: #e87c35;
+        }
+        .day-btn.selected {
+            border-color: #e87c35;
+            color: #e87c35;
+            background-color: #fff9f5;
+        }
+
+        /* Areas of Interest Grid */
+        .interest-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .interest-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fff;
+        }
+        .interest-card:hover {
+            border-color: #ccc;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+        }
+        .interest-card.selected {
+            border-color: #e87c35;
+            background-color: #fff9f5;
+        }
+        .interest-icon {
+            font-size: 1.2rem;
+        }
+        .interest-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        .interest-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #333;
+        }
+        .interest-name-hi {
+            font-size: 0.75rem;
+            color: #888;
+        }
+
+        /* Generate Button & Loader */
+        .generate-itinerary-btn {
+            background-color: #f6ae7e;
+            color: #fff;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .generate-itinerary-btn:hover {
+            background-color: #e89562;
+        }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Right Column: Personalized Experience */
+        .personalized-experience {
+            background: #fbf7f3;
+            padding: 40px 30px;
+            border-radius: 12px;
+            border: 1px solid #f2ebe4;
+            flex: 1;
+            min-width: 320px;
+            max-width: 450px;
+            text-align: center;
+        }
+        .experience-icon {
+            font-size: 3.5rem;
+            color: #6fb1dc;
+            margin-bottom: 20px;
+        }
+        .personalized-experience h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            color: #222;
+        }
+        .personalized-experience p {
+            color: #777;
+            font-size: 0.9rem;
+            margin-bottom: 35px;
+            padding: 0 10px;
+        }
+        .experience-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 15px;
+            text-align: left;
+            padding: 0 10px;
+        }
+        .experience-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: #444;
+            font-weight: 500;
+        }
+        .experience-feature i {
+            color: #e87c35;
+            font-size: 1rem;
+        }
+
+        /* Generated Results Section (Hidden by default) */
+        .results-section {
+            display: none;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            border: 1px solid #f0f0f0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .results-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .results-header h3 {
+            color: #2e7d32;
+            font-size: 1.8rem;
+            margin: 0 0 10px 0;
+        }
+        .results-header p {
+            color: #666;
+            margin: 0;
+        }
+        .timeline {
+            margin-left: 15px;
+            padding-left: 20px;
+            border-left: 2px dashed #e87c35;
+        }
+        .day-plan {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .day-plan::before {
+            content: '';
+            position: absolute;
+            left: -27px;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border: 3px solid #e87c35;
+            border-radius: 50%;
+        }
+        .day-plan h4 {
+            margin: 0 0 8px 0;
+            color: #e87c35;
+            font-size: 1.1rem;
+        }
+        .day-plan p {
+            margin: 0;
+            color: #555;
+            font-size: 0.95rem;
+            background: #fcfcfc;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+        .reset-btn {
+            background: transparent;
+            border: 2px solid #e87c35;
+            color: #e87c35;
+            padding: 10px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .reset-btn:hover {
+            background: #e87c35;
+            color: #fff;
+        }
+
+        /* Footer */
+        .site-footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .footer-logo .text-white { color: #fff; }
+        .footer-logo .text-orange { color: #e87c35; }
+        .site-footer p { margin: 5px 0; color: #aaa; }
+        .site-footer .copyright { font-size: 0.85rem; margin-top: 15px; }
+
+        @media (max-width: 768px) {
+            .plan-trip-content { flex-direction: column; align-items: center; }
+            .trip-wizard-card, .personalized-experience { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="nav-link">होम</a></li>
+            <li><a href="explore.html" class="nav-link">अन्वेषण</a></li>
+            <li><a href="plan-trip.html" class="nav-link active">यात्रा योजना</a></li>
+            <li><a href="festivals.html" class="nav-link">त्योहार</a></li>
+        </ul>
+        <div class="nav-actions" id="navActions">
+            <button class="lang-toggle"><i class="fas fa-globe"></i> English</button>
+            <a href="login.html" class="auth-link">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link">Sign Up</a>
+        </div>
+    </nav>
+
+    <main class="page-main">
+        <section class="plan-trip-hero">
+            <div class="plan-trip-hero-content">
+                <h1>Plan Your Trip</h1>
+                <p>Create the perfect Bastar itinerary tailored to your interests and schedule</p>
+            </div>
+        </section>
+
+        <section class="plan-trip-main">
+            <div class="plan-trip-container">
+                <div class="plan-trip-header">
+                    <h2>Plan Your Trip</h2>
+                    <h3 class="plan-trip-subtitle">अपनी यात्रा की योजना बनाएं</h3>
+                    <p>Let us create a personalized itinerary based on your interests and duration</p>
+                </div>
+
+                <div class="plan-trip-content" id="form-content">
+                    <div class="trip-wizard-card">
+                        <div class="trip-wizard-header">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h3>Trip Wizard</h3>
+                        </div>
+
+                        <div class="wizard-section">
+                            <label class="wizard-label">How many days? / कितने दिन?</label>
+                            <div class="day-buttons">
+                                <button class="day-btn" data-days="2">2 Days</button>
+                                <button class="day-btn" data-days="3">3 Days</button>
+                                <button class="day-btn" data-days="5">5 Days</button>
+                                <button class="day-btn" data-days="7">7 Days</button>
+                                <button class="day-btn" data-days="10">10 Days</button>
+                            </div>
+                        </div>
+
+                        <div class="wizard-section">
+                            <label class="wizard-label">Areas of Interest / रुचि के क्षेत्र</label>
+                            <div class="interest-grid">
+                                <div class="interest-card" data-interest="Nature">
+                                    <div class="interest-icon">🌿</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name">Nature</span>
+                                        <span class="interest-name-hi">प्रकृति</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Culture">
+                                    <div class="interest-icon">🎭</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name">Culture</span>
+                                        <span class="interest-name-hi">संस्कृति</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Food">
+                                    <div class="interest-icon">🍽️</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name">Food</span>
+                                        <span class="interest-name-hi">भोजन</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Festivals">
+                                    <div class="interest-icon">🎉</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name">Festivals</span>
+                                        <span class="interest-name-hi">त्योहार</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Adventure">
+                                    <div class="interest-icon">🏔️</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name">Adventure</span>
+                                        <span class="interest-name-hi">रोमांच</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Spiritual">
+                                    <div class="interest-icon">🕉️</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name">Spiritual</span>
+                                        <span class="interest-name-hi">आध्यात्मिक</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="generate-itinerary-btn" id="generate-btn">
+                            <span id="btn-text"><i class="fas fa-magic"></i> Generate My Itinerary</span>
+                            <div class="loader" id="btn-loader"></div>
+                        </button>
+                    </div>
+
+                    <div class="personalized-experience">
+                        <div class="experience-icon">
+                            <i class="fas fa-map-marked-alt"></i>
+                        </div>
+                        <h3>Personalized Experience Awaits</h3>
+                        <p>Select your preferences to get a customized itinerary featuring the best of Bastar</p>
+                        <div class="experience-features">
+                            <div class="experience-feature"><i class="far fa-star"></i><span>Local Experiences</span></div>
+                            <div class="experience-feature"><i class="fas fa-user-friends"></i><span>Expert Guides</span></div>
+                            <div class="experience-feature"><i class="fas fa-map-pin"></i><span>Hidden Gems</span></div>
+                            <div class="experience-feature"><i class="far fa-clock"></i><span>Flexible Timing</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-section" id="results-content">
+                    <div class="results-header">
+                        <h3><i class="fas fa-check-circle"></i> Your Custom Itinerary is Ready!</h3>
+                        <p id="results-summary">Here is your tailored plan for Bastar.</p>
+                    </div>
+                    
+                    <div class="timeline" id="itinerary-timeline">
+                        </div>
+
+                    <div class="action-buttons">
+                        <button class="reset-btn" id="reset-btn"><i class="fas fa-undo"></i> Plan Another Trip</button>
+                        <button class="btn-green" style="border:none; cursor:pointer; font-size:1rem; font-weight:600;"><i class="fas fa-download"></i> Save PDF</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div>
+        <p>Feel Bastar, Explore Beyond</p>
+        <p class="copyright">© 2024 ChalgunbeBastar.com</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Day selection
+            const dayButtons = document.querySelectorAll('.day-btn');
+            dayButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    dayButtons.forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // Interest selection
+            const interestCards = document.querySelectorAll('.interest-card');
+            interestCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+            });
+
+            // Generation Logic
+            const generateBtn = document.getElementById('generate-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+            const formContent = document.getElementById('form-content');
+            const resultsContent = document.getElementById('results-content');
+            const timeline = document.getElementById('itinerary-timeline');
+            const resultsSummary = document.getElementById('results-summary');
+            const resetBtn = document.getElementById('reset-btn');
+
+            generateBtn.addEventListener('click', function() {
+                const selectedDayBtn = document.querySelector('.day-btn.selected');
+                const selectedInterestsCards = document.querySelectorAll('.interest-card.selected');
+                
+                if (!selectedDayBtn) {
+                    alert('Please select the number of days / कृपया दिनों की संख्या चुनें');
+                    return;
+                }
+                
+                if (selectedInterestsCards.length === 0) {
+                    alert('Please select at least one area of interest / कृपया कम से कम एक रुचि क्षेत्र चुनें');
+                    return;
+                }
+                
+                // Start loading animation
+                btnText.style.display = 'none';
+                btnLoader.style.display = 'block';
+                generateBtn.style.pointerEvents = 'none';
+
+                // Simulate API call delay (1.5 seconds)
+                setTimeout(() => {
+                    const days = parseInt(selectedDayBtn.dataset.days);
+                    const interests = Array.from(selectedInterestsCards).map(card => card.dataset.interest);
+                    
+                    resultsSummary.innerText = `Here is your ${days}-day tailored plan focusing on ${interests.join(', ')}.`;
+
+                    // Generate timeline HTML dynamically
+                    let timelineHTML = '';
+                    for (let i = 1; i <= days; i++) {
+                        timelineHTML += `
+                            <div class="day-plan">
+                                <h4>Day ${i}</h4>
+                                <p>Discover the best of Bastar's <strong>${interests[Math.floor(Math.random() * interests.length)]}</strong>. Your guide will take you through exclusive local experiences curated just for you.</p>
+                            </div>
+                        `;
+                    }
+                    timeline.innerHTML = timelineHTML;
+
+                    // Switch views
+                    formContent.style.display = 'none';
+                    resultsContent.style.display = 'block';
+
+                    // Reset button state for next time
+                    btnText.style.display = 'block';
+                    btnLoader.style.display = 'none';
+                    generateBtn.style.pointerEvents = 'auto';
+
+                }, 1500);
+            });
+
+            // Reset Logic
+            resetBtn.addEventListener('click', function() {
+                resultsContent.style.display = 'none';
+                formContent.style.display = 'flex';
+            });
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Trip - Chalgunbe Bastar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Styles */
+        body { margin: 0; font-family: 'Inter', sans-serif; background-color: #fdfbf8; color: #333; line-height: 1.6; }
+
+        /* Navbar Styling */
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .logo a { text-decoration: none; font-size: 1.4rem; font-weight: 700; }
+        .text-green { color: #2e7d32; }
+        .text-orange { color: #e87c35; }
+        
+        .nav-links { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
+        .nav-link { text-decoration: none; color: #555; font-weight: 500; font-size: 0.90rem; transition: color 0.3s; }
+        .nav-link:hover, .nav-link.active { color: #e87c35; }
+        
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+        .lang-toggle, .auth-link { background: none; border: none; cursor: pointer; color: #555; font-size: 0.9rem; text-decoration: none; font-weight: 500; }
+        .btn-green { background-color: #1b5e20; color: white; padding: 8px 20px; border-radius: 6px; }
+
+        /* Hero Section */
+        .plan-trip-hero { background: linear-gradient(90deg, #d2e0d5 0%, #f9f1eb 50%, #f6e3d5 100%); padding: 60px 20px; text-align: center; }
+        .plan-trip-hero h1 { font-size: 2.8rem; color: #222; margin: 0 0 10px 0; font-weight: 700; }
+        .plan-trip-hero p { color: #666; font-size: 1.1rem; margin: 0; }
+
+        /* Main Content Container */
+        .plan-trip-container { max-width: 1000px; margin: 0 auto; padding: 50px 20px; }
+        .plan-trip-header { text-align: center; margin-bottom: 40px; }
+        .plan-trip-header h2 { font-size: 2.2rem; margin: 0 0 5px 0; color: #222; }
+        .plan-trip-subtitle { color: #e87c35; font-size: 1.4rem; margin: 0 0 15px 0; font-weight: 600; }
+        .plan-trip-header p { color: #777; font-size: 1rem; }
+
+        /* Two Column Layout */
+        .plan-trip-content { display: flex; gap: 30px; justify-content: center; align-items: stretch; flex-wrap: wrap; }
+
+        /* Left Column: Trip Wizard Card */
+        .trip-wizard-card { background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); flex: 1; min-width: 320px; max-width: 450px; border: 1px solid #f0f0f0; }
+        .trip-wizard-header { display: flex; align-items: center; gap: 10px; margin-bottom: 25px; color: #333; }
+        .trip-wizard-header i { color: #e87c35; font-size: 1.2rem; }
+        .trip-wizard-header h3 { margin: 0; font-size: 1.1rem; }
+
+        .wizard-section { margin-bottom: 25px; }
+        .wizard-label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; color: #444; }
+
+        /* Days Buttons */
+        .day-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+        .day-btn { background: #fff; border: 1px solid #e0e0e0; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; color: #444; transition: all 0.2s; font-family: inherit; }
+        .day-btn:hover { border-color: #e87c35; color: #e87c35; }
+        .day-btn.selected { border-color: #e87c35; color: #e87c35; background-color: #fff9f5; }
+
+        /* Areas of Interest Grid */
+        .interest-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .interest-card { border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s; background: #fff; }
+        .interest-card:hover { border-color: #ccc; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+        .interest-card.selected { border-color: #e87c35; background-color: #fff9f5; }
+        .interest-icon { font-size: 1.2rem; }
+        .interest-text { display: flex; flex-direction: column; line-height: 1.2; }
+        .interest-name { font-size: 0.85rem; font-weight: 500; color: #333; }
+        .interest-name-hi { font-size: 0.75rem; color: #888; }
+
+        /* Generate Button & Loader */
+        .generate-itinerary-btn { background-color: #f6ae7e; color: #fff; border: none; width: 100%; padding: 14px; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.3s; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .generate-itinerary-btn:hover { background-color: #e89562; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #fff; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; display: none; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Right Column: Personalized Experience */
+        .personalized-experience { background: #fbf7f3; padding: 40px 30px; border-radius: 12px; border: 1px solid #f2ebe4; flex: 1; min-width: 320px; max-width: 450px; text-align: center; }
+        .experience-icon { font-size: 3.5rem; color: #6fb1dc; margin-bottom: 20px; }
+        .personalized-experience h3 { margin: 0 0 10px 0; font-size: 1.2rem; color: #222; }
+        .personalized-experience p { color: #777; font-size: 0.9rem; margin-bottom: 35px; padding: 0 10px; }
+        .experience-features { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 15px; text-align: left; padding: 0 10px; }
+        .experience-feature { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: #444; font-weight: 500; }
+        .experience-feature i { color: #e87c35; font-size: 1rem; }
+
+        /* Generated Results Section */
+        .results-section { display: none; background: #fff; padding: 40px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; max-width: 800px; margin: 0 auto; }
+        .results-header { text-align: center; margin-bottom: 30px; }
+        .results-header h3 { color: #2e7d32; font-size: 1.8rem; margin: 0 0 10px 0; }
+        .results-header p { color: #666; margin: 0; }
+        .timeline { margin-left: 15px; padding-left: 20px; border-left: 2px dashed #e87c35; }
+        .day-plan { position: relative; margin-bottom: 30px; }
+        .day-plan::before { content: ''; position: absolute; left: -27px; top: 0; width: 12px; height: 12px; background: #fff; border: 3px solid #e87c35; border-radius: 50%; }
+        .day-plan h4 { margin: 0 0 8px 0; color: #e87c35; font-size: 1.1rem; }
+        .day-plan p { margin: 0; color: #555; font-size: 0.95rem; background: #fcfcfc; padding: 15px; border-radius: 8px; border: 1px solid #eee; }
+        .action-buttons { display: flex; gap: 15px; justify-content: center; margin-top: 40px; }
+        .reset-btn { background: transparent; border: 2px solid #e87c35; color: #e87c35; padding: 10px 24px; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+        .reset-btn:hover { background: #e87c35; color: #fff; }
+
+        /* Footer */
+        .site-footer { background-color: #222; color: #fff; text-align: center; padding: 30px 20px; margin-top: 50px; }
+        .footer-logo { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; }
+        .footer-logo .text-white { color: #fff; }
+        .footer-logo .text-orange { color: #e87c35; }
+        .site-footer p { margin: 5px 0; color: #aaa; }
+        .site-footer .copyright { font-size: 0.85rem; margin-top: 15px; }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; }
+            .nav-links, .nav-actions { display: none; }
+            .plan-trip-content { flex-direction: column; align-items: center; }
+            .trip-wizard-card, .personalized-experience { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="nav-link translatable" data-en="Home" data-hi="होम">Home</a></li>
+            <li><a href="explore.html" class="nav-link translatable" data-en="Explore" data-hi="अन्वेषण">Explore</a></li>
+            <li><a href="plan-trip.html" class="nav-link active translatable" data-en="Plan Trip" data-hi="यात्रा योजना">Plan Trip</a></li>
+            <li><a href="festivals.html" class="nav-link translatable" data-en="Festivals" data-hi="त्योहार">Festivals</a></li>
+            <li><a href="gallery.html" class="nav-link translatable" data-en="Gallery" data-hi="गैलरी">Gallery</a></li>
+            <li><a href="transport.html" class="nav-link translatable" data-en="Transport" data-hi="परिवहन">Transport</a></li>
+            <li><a href="help.html" class="nav-link translatable" data-en="Help" data-hi="सहायता">Help</a></li>
+            <li><a href="contact.html" class="nav-link translatable" data-en="Contact" data-hi="संपर्क">Contact</a></li>
+        </ul>
+        <div class="nav-actions" id="navActions">
+            <button class="lang-toggle" id="langToggleBtn"><i class="fas fa-globe"></i> <span id="lang-text">हिंदी</span></button>
+            <a href="login.html" class="auth-link translatable" data-en="Sign In" data-hi="लॉग इन">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link translatable" data-en="Sign Up" data-hi="साइन अप">Sign Up</a>
+        </div>
+    </nav>
+
+    <main class="page-main">
+        <section class="plan-trip-hero">
+            <div class="plan-trip-hero-content">
+                <h1 class="translatable" data-en="Plan Your Trip" data-hi="अपनी यात्रा की योजना बनाएं">Plan Your Trip</h1>
+                <p class="translatable" data-en="Create the perfect Bastar itinerary tailored to your interests and schedule" data-hi="अपनी रुचियों और समय के अनुसार सही बस्तर यात्रा कार्यक्रम बनाएं">Create the perfect Bastar itinerary tailored to your interests and schedule</p>
+            </div>
+        </section>
+
+        <section class="plan-trip-main">
+            <div class="plan-trip-container">
+                <div class="plan-trip-header">
+                    <h2 class="translatable" data-en="Plan Your Trip" data-hi="यात्रा की योजना">Plan Your Trip</h2>
+                    <h3 class="plan-trip-subtitle translatable" data-en="Let's make it happen" data-hi="अपनी यात्रा की योजना बनाएं">अपनी यात्रा की योजना बनाएं</h3>
+                    <p class="translatable" data-en="Let us create a personalized itinerary based on your interests and duration" data-hi="आइए आपकी रुचियों और अवधि के आधार पर एक व्यक्तिगत यात्रा कार्यक्रम बनाएं">Let us create a personalized itinerary based on your interests and duration</p>
+                </div>
+
+                <div class="plan-trip-content" id="form-content">
+                    <div class="trip-wizard-card">
+                        <div class="trip-wizard-header">
+                            <i class="fas fa-calendar-alt"></i>
+                            <h3 class="translatable" data-en="Trip Wizard" data-hi="ट्रिप विज़ार्ड">Trip Wizard</h3>
+                        </div>
+
+                        <div class="wizard-section">
+                            <label class="wizard-label translatable" data-en="How many days?" data-hi="कितने दिन?">How many days? / कितने दिन?</label>
+                            <div class="day-buttons">
+                                <button class="day-btn translatable" data-days="2" data-en="2 Days" data-hi="2 दिन">2 Days</button>
+                                <button class="day-btn translatable" data-days="3" data-en="3 Days" data-hi="3 दिन">3 Days</button>
+                                <button class="day-btn translatable" data-days="5" data-en="5 Days" data-hi="5 दिन">5 Days</button>
+                                <button class="day-btn translatable" data-days="7" data-en="7 Days" data-hi="7 दिन">7 Days</button>
+                                <button class="day-btn translatable" data-days="10" data-en="10 Days" data-hi="10 दिन">10 Days</button>
+                            </div>
+                        </div>
+
+                        <div class="wizard-section">
+                            <label class="wizard-label translatable" data-en="Areas of Interest" data-hi="रुचि के क्षेत्र">Areas of Interest / रुचि के क्षेत्र</label>
+                            <div class="interest-grid">
+                                <div class="interest-card" data-interest="Nature">
+                                    <div class="interest-icon">🌿</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name translatable" data-en="Nature" data-hi="प्रकृति">Nature</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Culture">
+                                    <div class="interest-icon">🎭</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name translatable" data-en="Culture" data-hi="संस्कृति">Culture</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Food">
+                                    <div class="interest-icon">🍽️</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name translatable" data-en="Food" data-hi="भोजन">Food</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Festivals">
+                                    <div class="interest-icon">🎉</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name translatable" data-en="Festivals" data-hi="त्योहार">Festivals</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Adventure">
+                                    <div class="interest-icon">🏔️</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name translatable" data-en="Adventure" data-hi="रोमांच">Adventure</span>
+                                    </div>
+                                </div>
+                                <div class="interest-card" data-interest="Spiritual">
+                                    <div class="interest-icon">🕉️</div>
+                                    <div class="interest-text">
+                                        <span class="interest-name translatable" data-en="Spiritual" data-hi="आध्यात्मिक">Spiritual</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="generate-itinerary-btn" id="generate-btn">
+                            <span id="btn-text" class="translatable" data-en="Generate My Itinerary" data-hi="मेरा प्लान बनाएं"><i class="fas fa-magic"></i> Generate My Itinerary</span>
+                            <div class="loader" id="btn-loader"></div>
+                        </button>
+                    </div>
+
+                    <div class="personalized-experience">
+                        <div class="experience-icon"><i class="fas fa-map-marked-alt"></i></div>
+                        <h3 class="translatable" data-en="Personalized Experience Awaits" data-hi="व्यक्तिगत अनुभव आपकी प्रतीक्षा कर रहा है">Personalized Experience Awaits</h3>
+                        <p class="translatable" data-en="Select your preferences to get a customized itinerary featuring the best of Bastar" data-hi="बस्तर के सर्वश्रेष्ठ स्थानों के साथ एक अनुकूलित यात्रा कार्यक्रम प्राप्त करने के लिए अपनी प्राथमिकताएं चुनें">Select your preferences to get a customized itinerary featuring the best of Bastar</p>
+                        <div class="experience-features">
+                            <div class="experience-feature"><i class="far fa-star"></i><span class="translatable" data-en="Local Experiences" data-hi="स्थानीय अनुभव">Local Experiences</span></div>
+                            <div class="experience-feature"><i class="fas fa-user-friends"></i><span class="translatable" data-en="Expert Guides" data-hi="विशेषज्ञ गाइड">Expert Guides</span></div>
+                            <div class="experience-feature"><i class="fas fa-map-pin"></i><span class="translatable" data-en="Hidden Gems" data-hi="छिपे हुए रत्न">Hidden Gems</span></div>
+                            <div class="experience-feature"><i class="far fa-clock"></i><span class="translatable" data-en="Flexible Timing" data-hi="लचीला समय">Flexible Timing</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-section" id="results-content">
+                    <div class="results-header">
+                        <h3 class="translatable" data-en="Your Custom Itinerary is Ready!" data-hi="आपका यात्रा प्लान तैयार है!"><i class="fas fa-check-circle"></i> Your Custom Itinerary is Ready!</h3>
+                        <p id="results-summary">Here is your tailored plan for Bastar.</p>
+                    </div>
+                    <div class="timeline" id="itinerary-timeline"></div>
+                    <div class="action-buttons">
+                        <button class="reset-btn translatable" id="reset-btn" data-en="Plan Another Trip" data-hi="दूसरी यात्रा प्लान करें"><i class="fas fa-undo"></i> Plan Another Trip</button>
+                        <button class="btn-green translatable" style="border:none; cursor:pointer; font-size:1rem; font-weight:600;" data-en="Save PDF" data-hi="पीडीएफ सेव करें"><i class="fas fa-download"></i> Save PDF</button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div>
+        <p>Feel Bastar, Explore Beyond</p>
+        <p class="copyright">© 2024 ChalgunbeBastar.com</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- LANGUAGE TRANSLATION LOGIC ---
+            let currentLang = 'en';
+            const langToggleBtn = document.getElementById('langToggleBtn');
+            const langTextSpan = document.getElementById('lang-text');
+            const translatableElements = document.querySelectorAll('.translatable');
+
+            langToggleBtn.addEventListener('click', function() {
+                // Toggle language
+                currentLang = currentLang === 'en' ? 'hi' : 'en';
+                
+                // Update Button Text (If current is hi, button should say English)
+                langTextSpan.innerText = currentLang === 'en' ? 'हिंदी' : 'English';
+                
+                // Update all text content
+                translatableElements.forEach(el => {
+                    const newText = el.getAttribute(`data-${currentLang}`);
+                    if(newText) {
+                        // If it has inner HTML icons (like the generate button), we preserve them
+                        if(el.querySelector('i')) {
+                            const iconHTML = el.querySelector('i').outerHTML;
+                            el.innerHTML = `${iconHTML} ${newText}`;
+                        } else {
+                            el.innerText = newText;
+                        }
+                    }
+                });
+            });
+            // -----------------------------------
+
+            // Day selection
+            const dayButtons = document.querySelectorAll('.day-btn');
+            dayButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    dayButtons.forEach(b => b.classList.remove('selected'));
+                    this.classList.add('selected');
+                });
+            });
+
+            // Interest selection
+            const interestCards = document.querySelectorAll('.interest-card');
+            interestCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.classList.toggle('selected');
+                });
+            });
+
+            // Generation Logic
+            const generateBtn = document.getElementById('generate-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+            const formContent = document.getElementById('form-content');
+            const resultsContent = document.getElementById('results-content');
+            const timeline = document.getElementById('itinerary-timeline');
+            const resultsSummary = document.getElementById('results-summary');
+            const resetBtn = document.getElementById('reset-btn');
+
+            generateBtn.addEventListener('click', function() {
+                const selectedDayBtn = document.querySelector('.day-btn.selected');
+                const selectedInterestsCards = document.querySelectorAll('.interest-card.selected');
+                
+                if (!selectedDayBtn) {
+                    alert(currentLang === 'en' ? 'Please select the number of days' : 'कृपया दिनों की संख्या चुनें');
+                    return;
+                }
+                
+                if (selectedInterestsCards.length === 0) {
+                    alert(currentLang === 'en' ? 'Please select at least one area of interest' : 'कृपया कम से कम एक रुचि क्षेत्र चुनें');
+                    return;
+                }
+                
+                // Start loading animation
+                btnText.style.display = 'none';
+                btnLoader.style.display = 'block';
+                generateBtn.style.pointerEvents = 'none';
+
+                // Simulate API call delay
+                setTimeout(() => {
+                    const days = parseInt(selectedDayBtn.dataset.days);
+                    const interests = Array.from(selectedInterestsCards).map(card => card.dataset.interest);
+                    
+                    if(currentLang === 'en') {
+                        resultsSummary.innerText = `Here is your ${days}-day tailored plan focusing on ${interests.join(', ')}.`;
+                    } else {
+                        resultsSummary.innerText = `यहाँ ${interests.join(', ')} पर केंद्रित आपका ${days} दिन का प्लान है।`;
+                    }
+
+                    // Generate timeline HTML dynamically
+                    let timelineHTML = '';
+                    for (let i = 1; i <= days; i++) {
+                        let dayText = currentLang === 'en' ? 'Day' : 'दिन';
+                        let descText = currentLang === 'en' ? 
+                            `Discover the best of Bastar's <strong>${interests[Math.floor(Math.random() * interests.length)]}</strong>. Your guide will take you through exclusive local experiences curated just for you.` : 
+                            `बस्तर की <strong>${interests[Math.floor(Math.random() * interests.length)]}</strong> का अनुभव करें। आपका गाइड आपको स्थानीय बेहतरीन अनुभव कराएगा।`;
+
+                        timelineHTML += `
+                            <div class="day-plan">
+                                <h4>${dayText} ${i}</h4>
+                                <p>${descText}</p>
+                            </div>
+                        `;
+                    }
+                    timeline.innerHTML = timelineHTML;
+
+                    // Switch views
+                    formContent.style.display = 'none';
+                    resultsContent.style.display = 'block';
+
+                    // Reset button state
+                    btnText.style.display = 'block';
+                    btnLoader.style.display = 'none';
+                    generateBtn.style.pointerEvents = 'auto';
+
+                }, 1500);
+            });
+
+            // Reset Logic
+            resetBtn.addEventListener('click', function() {
+                resultsContent.style.display = 'none';
+                formContent.style.display = 'flex';
+            });
+        });
+    </script>
+</body>
+</html>

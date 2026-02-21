@@ -1,0 +1,724 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festival - Chalgunbe Bastar</title>
+    <link rel="stylesheet" href="css/landing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="logo"><a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a></div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">होम</a></li>
+            <li><a href="festivals.html" class="nav-link active">त्योहार</a></li>
+        </ul>
+        <button type="button" class="nav-toggle" id="navToggle"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
+        <div class="nav-actions" id="navActions">
+            <a href="login.html" class="sign-in auth-link">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link">Sign Up</a>
+        </div>
+    </nav>
+    <div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
+    <div class="nav-drawer" id="navDrawer">
+        <div class="nav-drawer-header"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span><button type="button" class="nav-drawer-close" id="navDrawerClose">&times;</button></div>
+        <ul class="nav-drawer-links">
+            <li><a href="index.html" class="drawer-link">होम</a></li>
+            <li><a href="festivals.html" class="drawer-link">त्योहार</a></li>
+        </ul>
+    </div>
+    <main class="page-main">
+        <section class="page-hero page-hero-short"><h1>Bastar Dussehra</h1><p>72-day celebration</p></section>
+        <section class="content-section">
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button type="button" class="accordion-head">Schedule</button>
+                    <div class="accordion-body"><p>Begins in September, runs 72 days.</p></div>
+                </div>
+            </div>
+            <div class="gallery-grid gallery-grid-small" style="margin-top:24px">
+                <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=80')"></div>
+                <div class="gallery-item" style="background-image:url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=400&q=80')"></div>
+            </div>
+            <button type="button" class="btn btn-green" id="addToTripBtn">Add to Trip</button>
+        </section>
+    </main>
+    <footer class="site-footer"><div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div><p>Feel Bastar, Explore Beyond</p><p class="copyright">© 2024 ChalgunbeBastar.com</p></footer>
+    <script src="js/auth.js"></script>
+    <script src="js/components.js"></script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festivals - Chalgunbe Bastar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo a {
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .text-green { color: #2e7d32; }
+        .text-orange { color: #e87c35; }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .nav-link:hover {
+            color: #e87c35;
+        }
+        .nav-link.active {
+            background-color: #fff0e6;
+            color: #e87c35;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .lang-toggle, .auth-link {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .btn-green {
+            background-color: #2e7d32;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+        }
+
+        /* Hero Section */
+        .festivals-hero {
+            background: linear-gradient(90deg, #d2e0d5 0%, #f9f1eb 50%, #f6e3d5 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .festivals-hero h1 {
+            font-size: 2.8rem;
+            color: #333;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        .festivals-hero p {
+            color: #666;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* Main Content Container */
+        .festivals-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+        
+        /* Header Title */
+        .festivals-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .festivals-header h2 {
+            font-size: 2.2rem;
+            margin: 0 0 5px 0;
+            color: #222;
+        }
+        .festivals-subtitle {
+            color: #e87c35;
+            font-size: 1.4rem;
+            margin: 0 0 15px 0;
+            font-weight: 600;
+        }
+        .festivals-header p {
+            color: #666;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid Layout */
+        .festivals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Card Styling */
+        .festival-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .festival-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Card Image Area */
+        .card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .badge-left {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-right {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        /* Badge Colors */
+        .bg-orange { background-color: #e87c35; }
+        .bg-green { background-color: #2e7d32; }
+        .bg-dark-green { background-color: #1b5e20; }
+        .bg-blue-grey { background-color: #546e7a; }
+        .bg-dark { background-color: #212121; }
+
+        .card-title-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 40px 15px 15px;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            color: white;
+            box-sizing: border-box;
+        }
+        .card-title-overlay h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+        .card-title-overlay span {
+            font-size: 0.85rem;
+            color: #ddd;
+        }
+
+        /* Card Body */
+        .card-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .info-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #666;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+        .info-row i {
+            color: #e87c35;
+            width: 16px;
+            text-align: center;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #555;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+
+        /* Highlights */
+        .highlights-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #444;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .highlights-label i { color: #e87c35; }
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+        .tag {
+            background-color: #8a6347;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+        }
+        .tag-more {
+            background-color: #a67c52;
+        }
+
+        /* Card Actions */
+        .card-actions {
+            margin-top: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #e0e0e0;
+            color: #444;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-outline:hover {
+            border-color: #8a6347;
+            color: #8a6347;
+        }
+        .btn-solid-orange {
+            background-color: #e87c35;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-solid-orange:hover {
+            background-color: #d66a25;
+        }
+        .btn-solid-brown {
+            background-color: #8a6347;
+            border: none;
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-solid-brown:hover {
+            background-color: #714e36;
+        }
+
+        /* Bottom CTA Section */
+        .cta-section {
+            background-color: #fff9f5;
+            border: 1px solid #f2ebe4;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-section h3 {
+            font-size: 1.5rem;
+            color: #222;
+            margin: 0 0 10px 0;
+        }
+        .cta-section p {
+            color: #666;
+            margin: 0 0 25px 0;
+            font-size: 0.95rem;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .cta-btn-primary {
+            background-color: #e87c35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .cta-btn-primary:hover { background-color: #d66a25; }
+        .cta-btn-secondary {
+            background-color: #fff;
+            color: #444;
+            border: 1px solid #ccc;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .cta-btn-secondary:hover { border-color: #888; color: #222; }
+
+        /* Footer Basic Styling */
+        .site-footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .footer-logo .text-white { color: #fff; }
+        .footer-logo .text-orange { color: #e87c35; }
+        .site-footer p { margin: 5px 0; color: #aaa; }
+        .site-footer .copyright { font-size: 0.85rem; margin-top: 15px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; }
+            .nav-links, .nav-actions { display: none; }
+            .festivals-grid { grid-template-columns: 1fr; }
+            .cta-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="nav-link">होम</a></li>
+            <li><a href="explore.html" class="nav-link">अन्वेषण</a></li>
+            <li><a href="plan-trip.html" class="nav-link">यात्रा योजना</a></li>
+            <li><a href="festivals.html" class="nav-link active">त्योहार</a></li>
+            <li><a href="gallery.html" class="nav-link">गैलरी</a></li>
+            <li><a href="transport.html" class="nav-link">परिवहन</a></li>
+            <li><a href="help.html" class="nav-link">सहायता</a></li>
+            <li><a href="contact.html" class="nav-link">संपर्क</a></li>
+        </ul>
+        <div class="nav-actions" id="navActions">
+            <button class="lang-toggle"><i class="fas fa-globe"></i> English</button>
+            <a href="login.html" class="auth-link">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link">Sign Up</a>
+        </div>
+    </nav>
+
+    <main>
+        <section class="festivals-hero">
+            <h1>Bastar Festivals</h1>
+            <p>Experience the vibrant culture and traditions of tribal Bastar</p>
+        </section>
+
+        <section class="festivals-container">
+            <div class="festivals-header">
+                <h2>Bastar Festival Calendar</h2>
+                <h3 class="festivals-subtitle">बस्तर त्योहार कैलेंडर</h3>
+                <p>Immerse yourself in the vibrant cultural celebrations that define the spirit of Bastar. From ancient tribal rituals to modern cultural festivals, experience the soul of Chhattisgarh.</p>
+            </div>
+
+            <div class="festivals-grid">
+                
+                <div class="festival-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80');">
+                        <span class="badge-left bg-orange">Major Festival</span>
+                        <span class="badge-right bg-green">Open</span>
+                        <div class="card-title-overlay">
+                            <h3>Bastar Dussehra</h3>
+                            <span>बस्तर दशहरा</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row"><i class="far fa-calendar-alt"></i> July 15 - October 2</div>
+                        <div class="info-row"><i class="fas fa-map-marker-alt"></i> Jagdalpur</div>
+                        <div class="info-row"><i class="fas fa-user-friends"></i> ₹499/person</div>
+                        <p class="card-desc">World's longest Dussehra celebration with unique tribal traditions</p>
+                        
+                        <div class="highlights-label"><i class="fas fa-music"></i> Highlights</div>
+                        <div class="tags-container">
+                            <span class="tag">Tribal rituals</span>
+                            <span class="tag">Traditional dances</span>
+                            <span class="tag">Royal processions</span>
+                            <span class="tag tag-more">+1 more</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn-outline"><i class="far fa-eye"></i> View Details</button>
+                            <button class="btn-solid-orange"><i class="fas fa-user-plus"></i> Register to Join</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="festival-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80');">
+                        <span class="badge-left bg-orange">Cultural Fair</span>
+                        <span class="badge-right bg-orange">Coming Soon</span>
+                        <div class="card-title-overlay">
+                            <h3>Madai Festival</h3>
+                            <span>मड़ई उत्सव</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row"><i class="far fa-calendar-alt"></i> Coming Soon</div>
+                        <div class="info-row"><i class="fas fa-map-marker-alt"></i> Various Villages</div>
+                        <div class="info-row"><i class="fas fa-user-friends"></i> ₹299/person</div>
+                        <p class="card-desc">Traditional tribal fair celebrating harvest and community bonding</p>
+                        
+                        <div class="highlights-label"><i class="fas fa-music"></i> Highlights</div>
+                        <div class="tags-container">
+                            <span class="tag">Local crafts</span>
+                            <span class="tag">Traditional food</span>
+                            <span class="tag">Folk music</span>
+                            <span class="tag tag-more">+1 more</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn-outline"><i class="far fa-eye"></i> View Details</button>
+                            <button class="btn-solid-brown"><i class="far fa-bell"></i> Notify When Open</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="festival-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1603048297172-c92544798d5e?w=600&q=80');">
+                        <span class="badge-left bg-green">Tribal Festival</span>
+                        <span class="badge-right bg-orange">Coming Soon</span>
+                        <div class="card-title-overlay">
+                            <h3>Goncha Festival</h3>
+                            <span>गोंचा पर्व</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row"><i class="far fa-calendar-alt"></i> Coming Soon</div>
+                        <div class="info-row"><i class="fas fa-map-marker-alt"></i> Gond Villages</div>
+                        <div class="info-row"><i class="fas fa-user-friends"></i> ₹199/person</div>
+                        <p class="card-desc">Harvest festival of Gond tribe with traditional rituals</p>
+                        
+                        <div class="highlights-label"><i class="fas fa-music"></i> Highlights</div>
+                        <div class="tags-container">
+                            <span class="tag">Harvest celebration</span>
+                            <span class="tag">Gond traditions</span>
+                            <span class="tag">Sacred rituals</span>
+                            <span class="tag tag-more">+1 more</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn-outline"><i class="far fa-eye"></i> View Details</button>
+                            <button class="btn-solid-brown"><i class="far fa-bell"></i> Notify When Open</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="festival-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1583089892943-e02e5ee61623?w=600&q=80');">
+                        <span class="badge-left bg-dark-green">Seasonal Festival</span>
+                        <span class="badge-right bg-green">Open</span>
+                        <div class="card-title-overlay">
+                            <h3>Fagun Madai</h3>
+                            <span>फागुन मड़ई</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row"><i class="far fa-calendar-alt"></i> March 10 - 14</div>
+                        <div class="info-row"><i class="fas fa-map-marker-alt"></i> Dantewada</div>
+                        <div class="info-row"><i class="fas fa-user-friends"></i> ₹200/person</div>
+                        <p class="card-desc">Spring festival celebrating love, life, and tribal unity</p>
+                        
+                        <div class="highlights-label"><i class="fas fa-music"></i> Highlights</div>
+                        <div class="tags-container">
+                            <span class="tag">Spring celebration</span>
+                            <span class="tag">Cultural exchange</span>
+                            <span class="tag">Traditional games</span>
+                            <span class="tag tag-more">+1 more</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn-outline"><i class="far fa-eye"></i> View Details</button>
+                            <button class="btn-solid-orange"><i class="fas fa-user-plus"></i> Register to Join</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="festival-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80');">
+                        <span class="badge-left bg-blue-grey">Art Festival</span>
+                        <span class="badge-right bg-green">Open</span>
+                        <div class="card-title-overlay">
+                            <h3>Narayanpur Mahotsav</h3>
+                            <span>नारायणपुर महोत्सव</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row"><i class="far fa-calendar-alt"></i> December 5 - 7</div>
+                        <div class="info-row"><i class="fas fa-map-marker-alt"></i> Narayanpur</div>
+                        <div class="info-row"><i class="fas fa-user-friends"></i> ₹450/person</div>
+                        <p class="card-desc">Cultural extravaganza showcasing tribal art, music, and dance</p>
+                        
+                        <div class="highlights-label"><i class="fas fa-music"></i> Highlights</div>
+                        <div class="tags-container">
+                            <span class="tag">Art exhibitions</span>
+                            <span class="tag">Music concerts</span>
+                            <span class="tag">Dance performances</span>
+                            <span class="tag tag-more">+1 more</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn-outline"><i class="far fa-eye"></i> View Details</button>
+                            <button class="btn-solid-orange"><i class="fas fa-user-plus"></i> Register to Join</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="festival-card">
+                    <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1542614471-001ccf2bb458?w=600&q=80');">
+                        <span class="badge-left bg-dark">Classical Arts</span>
+                        <span class="badge-right bg-orange">Coming Soon</span>
+                        <div class="card-title-overlay">
+                            <h3>Chakradhar Samaroh</h3>
+                            <span>चक्रधर समारोह</span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="info-row"><i class="far fa-calendar-alt"></i> Coming Soon</div>
+                        <div class="info-row"><i class="fas fa-map-marker-alt"></i> Raigarh</div>
+                        <div class="info-row"><i class="fas fa-user-friends"></i> ₹750/person</div>
+                        <p class="card-desc">Classical music and dance festival honoring cultural heritage</p>
+                        
+                        <div class="highlights-label"><i class="fas fa-music"></i> Highlights</div>
+                        <div class="tags-container">
+                            <span class="tag">Classical performances</span>
+                            <span class="tag">Master classes</span>
+                            <span class="tag">Cultural workshops</span>
+                            <span class="tag tag-more">+1 more</span>
+                        </div>
+                        
+                        <div class="card-actions">
+                            <button class="btn-outline"><i class="far fa-eye"></i> View Details</button>
+                            <button class="btn-solid-brown"><i class="far fa-bell"></i> Notify When Open</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="cta-section">
+                <h3>Don't Miss Any Celebration</h3>
+                <p>Subscribe to our festival calendar and get notified about upcoming cultural events.</p>
+                <div class="cta-buttons">
+                    <button class="cta-btn-primary">Subscribe to Calendar</button>
+                    <button class="cta-btn-secondary">Download Festival Guide</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div>
+        <p>Feel Bastar, Explore Beyond</p>
+        <p class="copyright">© 2024 ChalgunbeBastar.com</p>
+    </footer>
+
+</body>
+</html> -->
