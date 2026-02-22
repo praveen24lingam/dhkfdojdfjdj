@@ -44,7 +44,15 @@ function initSupabase() {
             return false;
         }
         
-        supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        // Choose storage based on user's "rememberMe" preference.
+        // If user previously selected Remember Me, persist in localStorage; otherwise use sessionStorage.
+        var preferredStorage = (localStorage.getItem('rememberMe') === 'true') ? window.localStorage : window.sessionStorage;
+        try {
+            supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, { auth: { storage: preferredStorage } });
+        } catch (err) {
+            // Fallback if createClient signature doesn't accept options in this environment
+            supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        }
         window.supabaseClient = supabaseClient; // Expose for dashboard.js, profile.js, etc.
         console.log('✅ Supabase initialized successfully');
         
@@ -226,14 +234,14 @@ async function handleSignUp(event) {
             throw new Error('Supabase client not initialized');
         }
         
-        // Sign up with Supabase
+        // Sign up with Supabase - always create as regular 'user'
         const { data, error } = await supabaseClient.auth.signUp({
             email: email,
             password: password,
             options: {
                 data: {
                     full_name: fullName,
-                        role: userType // store role in user metadata (user or agent)
+                    role: 'user'
                 }
             }
         });
@@ -247,6 +255,27 @@ async function handleSignUp(event) {
         setTimeout(() => {
             window.location.href = 'login.html';
         }, 2000);
+        // If the user applied as an agent, create an agent_profiles record and mark profile as pending.
+        try {
+            if (userType === 'agent' && data && data.user && data.user.id) {
+                const uid = data.user.id;
+                // collect agent fields from form
+                const agency_name = form.querySelector('#agencyName')?.value?.trim() || '';
+                const phone = form.querySelector('#businessPhone')?.value?.trim() || '';
+                const whatsapp = form.querySelector('#whatsapp')?.value?.trim() || '';
+                const city = form.querySelector('#city')?.value?.trim() || '';
+                const specialization = form.querySelector('#specialization')?.value?.trim() || '';
+                const license_number = form.querySelector('#licenseNumber')?.value?.trim() || '';
+                const description = form.querySelector('#description')?.value?.trim() || '';
+
+                await supabaseClient.from('agent_profiles').insert([{ user_id: uid, agency_name, phone, whatsapp, city, specialization, license_number, description }]);
+
+                // mark profile as agent-request pending
+                await supabaseClient.from('profiles').update({ agent_request_status: 'pending', role: 'user' }).eq('id', uid);
+            }
+        } catch (err) {
+            console.error('Error creating agent profile:', err);
+        }
         
     } catch (error) {
         console.error('Sign up error:', error);
@@ -299,9 +328,11 @@ async function handleLogin(event) {
         
         if (error) throw error;
         
-        // Store remember me preference
+        // Store remember me preference (used by initSupabase to choose storage)
         if (rememberMe) {
             localStorage.setItem('rememberMe', 'true');
+        } else {
+            localStorage.removeItem('rememberMe');
         }
         
         showToast('Login successful! Redirecting...', 'success');
@@ -405,6 +436,19 @@ async function isLoggedIn() {
 async function getAuthStatus() {
     try {
         const user = await getCurrentUser();
+        // Enrich user with profile and agent profile data (server-side single source)
+        if (user && supabaseClient) {
+            try {
+                const { data: profile } = await supabaseClient.from('profiles').select('*').eq('id', user.id).single();
+                const { data: agentProfile } = await supabaseClient.from('agent_profiles').select('*').eq('user_id', user.id).single();
+                // attach to user metadata for UI consumption
+                user.profile = profile || null;
+                user.agent_profile = agentProfile || null;
+            } catch (err) {
+                // ignore missing tables or rows
+            }
+        }
+
         return {
             isAuthenticated: user !== null,
             user: user
@@ -421,7 +465,8 @@ async function getAuthStatus() {
     // Helper: return role string for a user object (default 'user')
     function getUserRole(user) {
         if (!user) return null;
-        // Prefer explicit metadata.role
+        // Prefer server profile role if available
+        if (user.profile && user.profile.role) return user.profile.role;
         if (user.user_metadata && user.user_metadata.role) return user.user_metadata.role;
         if (user.user_metadata && user.user_metadata.user_type) return user.user_metadata.user_type;
         return 'user';
@@ -436,8 +481,9 @@ async function getAuthStatus() {
             return false;
         }
         const role = getUserRole(auth.user);
-        if (role !== 'agent') {
-            showToast('Access denied: Agent role required', 'error');
+        const agentStatus = auth.user?.profile?.agent_request_status || null;
+        if (role !== 'agent' || agentStatus !== 'approved') {
+            showToast('Access denied: Approved agent required', 'error');
             window.location.href = '/';
             return false;
         }
@@ -533,7 +579,7 @@ async function initAuthUI() {
 
             addItem('My Reviews','profile.html#reviews','<i class="fas fa-star"></i>');
             addItem('Wishlist','profile.html#wishlist','<i class="fas fa-heart"></i>');
-            if (role === 'agent') addItem('Agent Dashboard','agent-dashboard.html','<i class="fas fa-user-tie"></i>');
+            if (role === 'agent' && user.profile && user.profile.agent_request_status === 'approved') addItem('Agent Dashboard','agent-dashboard.html','<i class="fas fa-user-tie"></i>');
             addItem('Logout','#','<i class="fas fa-sign-out-alt"></i>', function(e){ e.preventDefault(); handleLogout(); });
 
             profileBtn.addEventListener('click', function(e){
@@ -587,7 +633,7 @@ async function initAuthUI() {
         function addMenuItem(text, href, iconHtml, onClick){ const a=document.createElement('a'); a.href=href||'#'; a.className='nav-profile-item'; a.innerHTML=`<span class="nav-profile-item-icon">${iconHtml||''}</span><span class="nav-profile-item-text">${text}</span>`; if(onClick) a.addEventListener('click', onClick); menu.appendChild(a); }
         addMenuItem('My Reviews','profile.html#reviews','<i class="fas fa-star"></i>');
         addMenuItem('Wishlist','profile.html#wishlist','<i class="fas fa-heart"></i>');
-        if(role==='agent') addMenuItem('Agent Dashboard','agent-dashboard.html','<i class="fas fa-user-tie"></i>');
+        if(role==='agent' && profile && profile.agent_request_status === 'approved') addMenuItem('Agent Dashboard','agent-dashboard.html','<i class="fas fa-user-tie"></i>');
         addMenuItem('Logout','#','<i class="fas fa-sign-out-alt"></i>', function(e){ e.preventDefault(); handleLogout(); });
         const btn = profileLi.querySelector('.nav-profile-btn');
         btn.addEventListener('click', function(e){ e.stopPropagation(); menu.style.display = menu.style.display==='none'?'block':'none'; });

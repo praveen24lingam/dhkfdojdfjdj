@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     
     // Initialize navigation
     initNavigation();
+    // Initialize notifications toggle
+    initNotifications();
     
     // Initialize forms
     initForms();
@@ -160,10 +162,162 @@ async function loadDashboardData() {
     await Promise.all([
         loadComplaints(),
         loadFeedbacks(),
-        loadAgentRequests()
+        loadAgentRequests(),
+        loadBookings(),
+        loadNotifications(),
+        loadActivityLog()
     ]);
     
     updateStats();
+}
+
+// ===================================
+// BOOKINGS, NOTIFICATIONS & ACTIVITY
+// ===================================
+
+let bookings = [];
+let notifications = [];
+let activityLog = [];
+
+async function loadBookings() {
+    const supabase = getSupabase();
+    if (!supabase || !currentUser) return;
+    try {
+        const { data, error } = await supabase.from('bookings').select('*').or(`user_id.eq.${currentUser.id},agent_id.eq.${currentUser.id}`).order('created_at', { ascending: false });
+        if (error) throw error;
+        bookings = data || [];
+        displayUpcomingTrips();
+        displayTravelHistory();
+    } catch (err) {
+        console.error('Error loading bookings:', err);
+        bookings = [];
+    }
+}
+
+async function loadNotifications() {
+    const supabase = getSupabase();
+    if (!supabase || !currentUser) return;
+    try {
+        const { data, error } = await supabase.from('notifications').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false });
+        if (error) throw error;
+        notifications = data || [];
+        displayNotifications();
+        updateNotificationCount();
+    } catch (err) {
+        console.error('Error loading notifications:', err);
+        notifications = [];
+    }
+}
+
+function initNotifications() {
+    const toggle = document.getElementById('notifToggle');
+    const dropdown = document.getElementById('notifDropdown');
+    if (!toggle || !dropdown) return;
+    toggle.addEventListener('click', function(e){
+        e.stopPropagation();
+        dropdown.style.display = dropdown.style.display === 'none' || dropdown.style.display === '' ? 'block' : 'none';
+    });
+    document.addEventListener('click', function(){ if (dropdown) dropdown.style.display = 'none'; });
+}
+
+// update notification count after loading
+function updateNotificationCount() {
+    const el = document.getElementById('notifCount');
+    if (!el) return;
+    const unread = notifications.filter(n => !n.read).length;
+    el.textContent = unread > 0 ? `(${unread})` : '';
+}
+
+async function loadActivityLog() {
+    const supabase = getSupabase();
+    if (!supabase || !currentUser) return;
+    try {
+        const { data, error } = await supabase.from('activity_log').select('*').eq('user_id', currentUser.id).order('created_at', { ascending: false }).limit(50);
+        if (error) throw error;
+        activityLog = data || [];
+        displayActivityLog();
+    } catch (err) {
+        console.error('Error loading activity log:', err);
+        activityLog = [];
+    }
+}
+
+function displayUpcomingTrips() {
+    const el = document.querySelector('#upcomingTrips');
+    if (!el) return;
+    const upcoming = bookings.filter(b => b.status === 'confirmed' && b.start_date && new Date(b.start_date) > new Date());
+    if (!upcoming || upcoming.length === 0) {
+        el.innerHTML = '<div class="empty-state">No upcoming trips</div>';
+        return;
+    }
+    el.innerHTML = upcoming.map(b => `
+        <div class="item-card">
+            <div class="item-header">
+                <div>
+                    <h4 class="item-title">${escapeHtml(b.location_id || 'Trip')}</h4>
+                    <p class="item-date">${formatDate(b.start_date)} - ${formatDate(b.end_date)}</p>
+                </div>
+                <span class="badge">${escapeHtml(b.status)}</span>
+            </div>
+            <p class="item-content">${escapeHtml(b.metadata?.notes || '')}</p>
+        </div>
+    `).join('');
+}
+
+function displayTravelHistory() {
+    const el = document.querySelector('#travelHistory');
+    if (!el) return;
+    const past = bookings.filter(b => b.status === 'completed' || (b.end_date && new Date(b.end_date) < new Date()));
+    if (!past || past.length === 0) {
+        el.innerHTML = '<div class="empty-state">No travel history yet</div>';
+        return;
+    }
+    el.innerHTML = past.map(b => `
+        <div class="item-card">
+            <div class="item-header">
+                <div>
+                    <h4 class="item-title">${escapeHtml(b.location_id || 'Trip')}</h4>
+                    <p class="item-date">${formatDate(b.start_date)}</p>
+                </div>
+                <span class="badge">${escapeHtml(b.status)}</span>
+            </div>
+            <p class="item-content">${escapeHtml(b.metadata?.notes || '')}</p>
+        </div>
+    `).join('');
+}
+
+function displayActivityLog() {
+    const el = document.querySelector('#activityLog');
+    if (!el) return;
+    if (!activityLog || activityLog.length === 0) {
+        el.innerHTML = '<div class="empty-state">No recent activity</div>';
+        return;
+    }
+    el.innerHTML = activityLog.map(a => `
+        <div class="item-card">
+            <div class="item-header">
+                <div>
+                    <p class="item-date">${formatDate(a.created_at)}</p>
+                </div>
+            </div>
+            <p class="item-content">${escapeHtml(a.action)} ${escapeHtml(JSON.stringify(a.meta || {}))}</p>
+        </div>
+    `).join('');
+}
+
+function displayNotifications() {
+    const el = document.querySelector('#notificationList');
+    if (!el) return;
+    if (!notifications || notifications.length === 0) {
+        el.innerHTML = '<div class="empty-state">No notifications</div>';
+        return;
+    }
+    el.innerHTML = notifications.map(n => `
+        <div class="notif-item ${n.read ? 'read' : 'unread'}">
+            <div><small>${formatDate(n.created_at)}</small></div>
+            <div>${escapeHtml(n.message || n.type)}</div>
+        </div>
+    `).join('');
 }
 
 async function loadComplaints() {

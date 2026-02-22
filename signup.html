@@ -148,6 +148,38 @@
                             <span>I agree to the <a href="#" class="auth-link">Terms of Service</a> and <a href="#" class="auth-link">Privacy Policy</a></span>
                         </label>
                     </div>
+                    <!-- Agent additional fields (hidden unless Agent selected) -->
+                    <div id="agentFields" style="display:none;">
+                        <h3 class="section-title">Agent Details</h3>
+                        <div class="form-group">
+                            <label for="agencyName" class="form-label">Agency Name</label>
+                            <input type="text" id="agencyName" class="form-input" placeholder="Agency Pvt Ltd">
+                        </div>
+                        <div class="form-group">
+                            <label for="businessPhone" class="form-label">Business Phone</label>
+                            <input type="text" id="businessPhone" class="form-input" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp" class="form-label">WhatsApp</label>
+                            <input type="text" id="whatsapp" class="form-input" placeholder="+91 98765 43210">
+                        </div>
+                        <div class="form-group">
+                            <label for="city" class="form-label">City</label>
+                            <input type="text" id="city" class="form-input" placeholder="Jagdalpur">
+                        </div>
+                        <div class="form-group">
+                            <label for="specialization" class="form-label">Specialization</label>
+                            <input type="text" id="specialization" class="form-input" placeholder="Trekking, Cultural Tours">
+                        </div>
+                        <div class="form-group">
+                            <label for="licenseNumber" class="form-label">License Number (optional)</label>
+                            <input type="text" id="licenseNumber" class="form-input" placeholder="License / GST / ID">
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea id="description" class="form-input" rows="3" placeholder="Tell us about your services"></textarea>
+                        </div>
+                    </div>
 
                     <button type="submit" class="btn btn-orange btn-full" id="submitBtn">
                         <span>Create Account</span>
@@ -211,6 +243,25 @@
    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.3/dist/umd/supabase.min.js"
            onerror="console.error('CDN 1 failed, trying fallback...'); this.onerror=null; this.src='https://unpkg.com/@supabase/supabase-js@2.39.3/dist/umd/supabase.js';"></script>
     <script src="js/auth.js"></script>
+    <script>
+        // Toggle agent fields based on selected user type
+        (function(){
+            const agentRadio = document.getElementById('userType-agent');
+            const userRadio = document.getElementById('userType-user');
+            const agentFields = document.getElementById('agentFields');
+
+            function update() {
+                if (agentRadio && agentRadio.checked) {
+                    agentFields.style.display = '';
+                } else {
+                    agentFields.style.display = 'none';
+                }
+            }
+
+            document.querySelectorAll('input[name="userType"]').forEach(r => r.addEventListener('change', update));
+            update();
+        })();
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>

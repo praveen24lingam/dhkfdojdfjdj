@@ -168,6 +168,9 @@ CREATE TABLE IF NOT EXISTS public.profiles (
     phone TEXT,
     bio TEXT,
     is_verified BOOLEAN DEFAULT FALSE,
+    -- Track agent request status and role
+    agent_request_status TEXT DEFAULT NULL CHECK (agent_request_status IN ('pending','approved','rejected')),
+    role TEXT NOT NULL DEFAULT 'user' CHECK (role IN ('user','agent','admin')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
@@ -216,6 +219,198 @@ CREATE TRIGGER on_auth_user_created
     AFTER INSERT ON auth.users
     FOR EACH ROW
     EXECUTE FUNCTION public.handle_new_user();
+
+-- ===================================
+-- AGENT PROFILES (Detailed agent data)
+-- ===================================
+
+CREATE TABLE IF NOT EXISTS public.agent_profiles (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    agency_name TEXT NOT NULL,
+    phone TEXT,
+    whatsapp TEXT,
+    city TEXT,
+    specialization TEXT,
+    license_number TEXT,
+    description TEXT,
+    rating NUMERIC DEFAULT 0,
+    total_bookings INTEGER DEFAULT 0,
+    verified BOOLEAN DEFAULT FALSE,
+    -- Agent availability stored as JSONB array of {date, status}
+    availability JSONB DEFAULT '[]'::jsonb,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS agent_profiles_user_id_idx ON public.agent_profiles(user_id);
+
+ALTER TABLE public.agent_profiles ENABLE ROW LEVEL SECURITY;
+
+-- RLS: allow users to view/insert their own agent profile
+CREATE POLICY "Users can manage their agent profile"
+    ON public.agent_profiles
+    FOR ALL
+    USING (auth.uid() = user_id)
+    WITH CHECK (auth.uid() = user_id);
+
+CREATE TRIGGER update_agent_profiles_updated_at
+    BEFORE UPDATE ON public.agent_profiles
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- ===================================
+-- BOOKINGS TABLE
+-- Tracks booking requests and status timeline
+-- ===================================
+
+CREATE TABLE IF NOT EXISTS public.bookings (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+    agent_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    location_id TEXT,
+    start_date TIMESTAMP WITH TIME ZONE,
+    end_date TIMESTAMP WITH TIME ZONE,
+    guests INTEGER DEFAULT 1,
+    total_amount NUMERIC DEFAULT 0,
+    status TEXT DEFAULT 'inquiry' CHECK (status IN ('inquiry','confirmed','cancelled','completed','rejected')),
+    status_timeline JSONB DEFAULT '[]'::jsonb,
+    metadata JSONB DEFAULT '{}',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS bookings_user_id_idx ON public.bookings(user_id);
+CREATE INDEX IF NOT EXISTS bookings_agent_id_idx ON public.bookings(agent_id);
+CREATE INDEX IF NOT EXISTS bookings_created_at_idx ON public.bookings(created_at DESC);
+
+ALTER TABLE public.bookings ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can create their booking"
+    ON public.bookings
+    FOR INSERT
+    WITH CHECK (auth.uid() = user_id);
+
+CREATE POLICY "Users can view their own bookings"
+    ON public.bookings
+    FOR SELECT
+    USING (auth.uid() = user_id OR auth.uid() = agent_id);
+
+CREATE POLICY "Users can update booking status"
+    ON public.bookings
+    FOR UPDATE
+    USING (auth.uid() = user_id OR auth.uid() = agent_id);
+
+CREATE TRIGGER update_bookings_updated_at
+    BEFORE UPDATE ON public.bookings
+    FOR EACH ROW
+    EXECUTE FUNCTION update_updated_at_column();
+
+-- ===================================
+-- ACTIVITY LOG
+-- Tracks user actions without modifying existing tables
+-- ===================================
+
+CREATE TABLE IF NOT EXISTS public.activity_log (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    user_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    action TEXT NOT NULL,
+    meta JSONB DEFAULT '{}',
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS activity_log_user_id_idx ON public.activity_log(user_id);
+
+ALTER TABLE public.activity_log ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can insert own activity"
+    ON public.activity_log
+    FOR INSERT
+    WITH CHECK (auth.uid() = user_id OR user_id IS NULL);
+
+CREATE POLICY "Users can view their activity"
+    ON public.activity_log
+    FOR SELECT
+    USING (auth.uid() = user_id OR true);
+
+-- ===================================
+-- NOTIFICATIONS
+-- Simple notification table to notify users/agents
+-- ===================================
+
+CREATE TABLE IF NOT EXISTS public.notifications (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+    actor_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    type TEXT NOT NULL,
+    message TEXT,
+    data JSONB DEFAULT '{}',
+    read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS notifications_user_id_idx ON public.notifications(user_id);
+
+ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can manage their notifications"
+    ON public.notifications
+    FOR ALL
+    USING (auth.uid() = user_id)
+    WITH CHECK (auth.uid() = user_id);
+
+-- ===================================
+-- MESSAGES
+-- Optional basic messaging table
+-- ===================================
+
+CREATE TABLE IF NOT EXISTS public.messages (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    sender_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    receiver_id UUID REFERENCES auth.users(id) ON DELETE SET NULL,
+    booking_id UUID REFERENCES public.bookings(id) ON DELETE SET NULL,
+    content TEXT NOT NULL,
+    read BOOLEAN DEFAULT FALSE,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS messages_receiver_id_idx ON public.messages(receiver_id);
+
+ALTER TABLE public.messages ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can send messages"
+    ON public.messages
+    FOR INSERT
+    WITH CHECK (auth.uid() = sender_id);
+
+CREATE POLICY "Users can view their messages"
+    ON public.messages
+    FOR SELECT
+    USING (auth.uid() = sender_id OR auth.uid() = receiver_id);
+
+-- ===================================
+-- ADMIN: Approve/Reject Agent RPC
+-- Only callable by authenticated admin users (enforced in function)
+-- ===================================
+
+CREATE OR REPLACE FUNCTION public.admin_set_agent_status(target_user UUID, approve BOOLEAN)
+RETURNS void AS $$
+DECLARE
+    caller_profile public.profiles%ROWTYPE;
+BEGIN
+    SELECT * INTO caller_profile FROM public.profiles WHERE id = auth.uid();
+    IF caller_profile.role IS NULL OR caller_profile.role <> 'admin' THEN
+        RAISE EXCEPTION 'Only admin may perform this action';
+    END IF;
+
+    IF approve THEN
+        UPDATE public.profiles SET role = 'agent', agent_request_status = 'approved' WHERE id = target_user;
+        UPDATE public.agent_profiles SET verified = TRUE WHERE user_id = target_user;
+    ELSE
+        UPDATE public.profiles SET agent_request_status = 'rejected' WHERE id = target_user;
+    END IF;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 -- ===================================
 -- AGENT CONNECTIONS TABLE

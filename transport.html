@@ -1,3 +1,4 @@
+<!-- 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,34 +7,1409 @@
     <title>Transport - Chalgunbe Bastar</title>
     <link rel="stylesheet" href="css/landing.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- Navbar & Base Styles --- */
+        .lang-toggle { display: flex; align-items: center; gap: 5px; color: #333; text-decoration: none; font-weight: 500; margin-right: 15px; }
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+        .text-orange { color: #e67e22; }
+        .text-green { color: #2e7d32; }
+        
+        /* --- Transport Hero Section --- */
+        .transport-hero {
+            background: linear-gradient(to right, #e8ede4, #f8efe6);
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+        .transport-hero h1 { font-size: 2.5rem; color: #333; margin-bottom: 10px; }
+        .transport-hero p { color: #666; font-size: 1.1rem; }
+
+        /* --- Transport Services Section --- */
+        .services-section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2rem; color: #333; margin-bottom: 5px; }
+        .section-header h3 { font-size: 1.5rem; color: #e67e22; margin-bottom: 15px; font-weight: normal; }
+        .section-header p { color: #666; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* --- Vehicle Grid & Cards --- */
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .vehicle-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .vehicle-card:hover { transform: translateY(-5px); }
+        
+        .card-badge { position: absolute; top: 20px; left: 20px; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .badge-economy { background: #e8f5e9; color: #2e7d32; }
+        .badge-adventure { background: #fff3e0; color: #e65100; }
+        .badge-premium { background: #f3e5f5; color: #7b1fa2; }
+        .badge-comfort { background: #e3f2fd; color: #1565c0; }
+        .badge-group { background: #fff8e1; color: #f57f17; }
+        
+        .card-rating { position: absolute; top: 20px; right: 20px; background: #333; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
+        .card-rating i { color: #ffca28; }
+
+        .vehicle-img { width: 100%; height: 180px; object-fit: contain; margin: 30px 0 15px; }
+        
+        .vehicle-title { font-size: 1.2rem; color: #333; margin-bottom: 2px; font-weight: bold; }
+        .vehicle-subtitle { font-size: 1rem; color: #e67e22; margin-bottom: 10px; }
+        .vehicle-desc { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
+
+        .vehicle-details { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #444; }
+        .vehicle-details i { color: #e67e22; width: 16px; margin-right: 5px; }
+        .price-text { font-weight: bold; color: #333; }
+        .driver-rating { color: #ff9800; font-size: 0.8rem; }
+
+        .vehicle-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0 20px; }
+        .v-tag { background: #8b5a2b; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; }
+
+        .btn-book { background: #f28500; color: #fff; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.3s; }
+        .btn-book:hover { background: #d67100; }
+
+        /* --- Features Row --- */
+        .features-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 60px; text-align: center; }
+        .feature-icon { width: 50px; height: 50px; background: #fff3e0; color: #e67e22; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin: 0 auto 15px; }
+        .feature-title { font-weight: bold; color: #333; margin-bottom: 8px; font-size: 1rem; }
+        .feature-desc { font-size: 0.85rem; color: #777; line-height: 1.4; }
+
+        /* --- Help Box --- */
+        .help-box { background: #faebd7; max-width: 800px; margin: 0 auto; padding: 40px; border-radius: 12px; text-align: center; }
+        .help-box h3 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
+        .help-box p { color: #555; margin-bottom: 25px; }
+        .help-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .btn-call { background: #f28500; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .btn-outline { background: #fff; color: #333; border: 1px solid #ccc; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-row { grid-template-columns: repeat(2, 1fr); }
+            .transport-hero h1 { font-size: 2rem; }
+        }
+        @media (max-width: 480px) {
+            .features-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link" data-en="Home" data-hi="होम">Home</a></li>
+            <li><a href="explore.html" class="nav-link" data-en="Explore" data-hi="अन्वेषण">Explore</a></li>
+            <li><a href="plan_trip.html" class="nav-link" data-en="Plan Trip" data-hi="यात्रा योजना">Plan Trip</a></li>
+            <li><a href="festivals.html" class="nav-link" data-en="Festivals" data-hi="त्योहार">Festivals</a></li>
+            <li><a href="gallery.html" class="nav-link" data-en="Gallery" data-hi="गैलरी">Gallery</a></li>
+            <li><a href="transport.html" class="nav-link active" data-en="Transport" data-hi="परिवहन">Transport</a></li>
+            <li><a href="help.html" class="nav-link" data-en="Help" data-hi="सहायता">Help</a></li>
+            <li><a href="contact.html" class="nav-link" data-en="Contact" data-hi="संपर्क">Contact</a></li>
+        </ul>
+        <button type="button" class="nav-toggle" id="navToggle">
+            <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+        </button>
+        <div class="nav-actions" id="navActions">
+            <a href="#" class="lang-toggle" id="langToggle"><i class="fas fa-globe"></i> हिंदी</a>
+            <a href="login.html" class="sign-in auth-link">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link">Sign Up</a>
+        </div>
+    </nav>
+
+    <main class="page-main">
+        <section class="transport-hero">
+            <h1>Transport</h1>
+            <p>Reliable and comfortable transportation options for your Bastar journey</p>
+        </section>
+        
+        <section class="services-section">
+            <div class="section-header">
+                <h2>Transport Services</h2>
+                <h3>परिवहन सेवाएं</h3>
+                <p>Book reliable and comfortable transportation for your Bastar journey. From auto rickshaws to luxury SUVs, we have options for every need and budget.</p>
+            </div>
+
+            <div class="vehicle-grid">
+                
+                <div class="vehicle-card">
+                    <span class="card-badge badge-economy">Economy</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.2</span>
+                    <img src="https://auto.hindustantimes.com/cms-images/marutisuzuki_eeco/images/exterior_marutisuzuki-eeco_front-right-side_930x620.jpg" alt="Van" class="vehicle-img" onerror="this.src='https://cdn.motorfloor.com/vehicles/bus/tata-magic-ev.jpg'">
+                    <div class="vehicle-title">Van</div>
+                    <div class="vehicle-subtitle">वैन</div>
+                    <div class="vehicle-desc">Perfect for short distance city travel</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> 5 passengers</span>
+                        <span class="price-text">₹10-15 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> 24/7</span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> Driver: 4</span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag">Local transport</span>
+                        <span class="v-tag">City rides</span>
+                        <span class="v-tag">Quick booking</span>
+                    </div>
+                    <button class="btn-book"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-adventure">Adventure</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.6</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4eTZHB2aNUIJQjkY_l5WDucgUUK-4yJa7xw&s" alt="Jeep/SUV" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Jeep+Image'">
+                    <div class="vehicle-title">Jeep/SUV</div>
+                    <div class="vehicle-subtitle">जीप/एसयूवी</div>
+                    <div class="vehicle-desc">Ideal for adventure trips and rough terrain</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> 6-7 passengers</span>
+                        <span class="price-text">₹18-25 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> 6 AM - 10 PM</span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> Driver: 4.4</span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag">4WD capable</span>
+                        <span class="v-tag">Jungle safari</span>
+                        <span class="v-tag">Mountain roads</span>
+                    </div>
+                    <button class="btn-book"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-premium">Premium</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.7</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8V62cXcxRDbXCOSFaiaKfiD9RUeqqTsx-A&s" alt="Scorpio/Bolero" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Scorpio+Image'">
+                    <div class="vehicle-title">Scorpio/Bolero</div>
+                    <div class="vehicle-subtitle">स्कॉर्पियो/बोलेरो</div>
+                    <div class="vehicle-desc">Best for group tours and long distance travel</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> 7-8 passengers</span>
+                        <span class="price-text">₹20-30 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> 24/7</span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> Driver: 4.5</span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag">Group travel</span>
+                        <span class="v-tag">Luggage space</span>
+                        <span class="v-tag">Comfortable seating</span>
+                    </div>
+                    <button class="btn-book"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-comfort">Comfort</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.5</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnJEm1Td7QWbMdX_feOxnI5XzxCidL--WS5Q&s" alt="Taxi/Sedan" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Taxi+Image'">
+                    <div class="vehicle-title">Taxi/Sedan</div>
+                    <div class="vehicle-subtitle">टैक्सी/सेडान</div>
+                    <div class="vehicle-desc">Comfortable for small groups and business travel</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> 4 passengers</span>
+                        <span class="price-text">₹15-22 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> 24/7</span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> Driver: 4.3</span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag">Comfortable ride</span>
+                        <span class="v-tag">AC</span>
+                        <span class="v-tag">City to city</span>
+                    </div>
+                    <button class="btn-book"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-group">Group</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.3</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdkfQKIOvHqmLlLgBokOiyzN1JV1uj9Ue-Q&s" alt="Bus/Minibus" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Bus+Image'">
+                    <div class="vehicle-title">Bus/Minibus</div>
+                    <div class="vehicle-subtitle">बस/मिनिबस</div>
+                    <div class="vehicle-desc">Perfect for large groups and extended tours</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> 12-20 passengers</span>
+                        <span class="price-text">₹25-40 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> 6 AM - 11 PM</span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> Driver: 4.1</span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag">Large groups</span>
+                        <span class="v-tag">Tour packages</span>
+                        <span class="v-tag">Long distance</span>
+                    </div>
+                    <button class="btn-book"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-economy">Economy</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.1</span>
+                    <img src="https://content.jdmagicbox.com/v2/comp/jaipur/u9/0141px141.x141.240418205214.k9u9/catalogue/freedo-hans-vihar-jaipur-bike-on-rent-y8nxo2a0w5-250.jpg" alt="Bike/Motorcycle" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Bike+Image'">
+                    <div class="vehicle-title">Bike/Motorcycle</div>
+                    <div class="vehicle-subtitle">बाइक/मोटरसाइकिल</div>
+                    <div class="vehicle-desc">Fast and economical for short trips</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> 2 passengers</span>
+                        <span class="price-text">₹8-12 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> 6 AM - 10 PM</span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> Driver: 3.9</span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag">Quick travel</span>
+                        <span class="v-tag">Traffic easy</span>
+                        <span class="v-tag">Economical</span>
+                    </div>
+                    <button class="btn-book"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+            </div>
+
+            <div class="features-row">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="feature-title">Verified Drivers</div>
+                    <div class="feature-desc">All drivers are background verified and licensed</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="far fa-clock"></i></div>
+                    <div class="feature-title">24/7 Available</div>
+                    <div class="feature-desc">Round the clock booking and support service</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-gas-pump"></i></div>
+                    <div class="feature-title">Fuel Included</div>
+                    <div class="feature-desc">No hidden charges, fuel costs included in fare</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <div class="feature-title">Digital Receipt</div>
+                    <div class="feature-desc">Get instant PDF receipts for all bookings</div>
+                </div>
+            </div>
+
+            <div class="help-box">
+                <h3>Need Help with Booking?</h3>
+                <p>Call our transport helpline for immediate assistance or custom requirements</p>
+                <div class="help-buttons">
+                    <a href="tel:+917782226677" class="btn-call"><i class="fas fa-phone-alt"></i> Call +91-7782-226677</a>
+                    <a href="#" class="btn-outline"><i class="far fa-calendar-alt"></i> Book Multi-Day Trip</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+
+    
+
+    <footer class="site-footer">
+        <div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div>
+        <p>Feel Bastar, Explore Beyond</p>
+        <p class="copyright">2024 ChalgunbeBastar.com</p>
+    </footer>
+
+    <script src="js/auth.js"></script>
+    <script src="js/components.js"></script>
+</body>
+</html>  -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Chalgunbe Bastar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Base Styles */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo a {
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .text-green { color: #2e7d32; }
+        .text-orange { color: #e87c35; }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .nav-link:hover { color: #e87c35; }
+        .nav-link.active {
+            background-color: #fff0e6;
+            color: #e87c35;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .lang-toggle, .auth-link {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #555;
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .btn-green {
+            background-color: #2e7d32;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+        }
+
+        /* Hero Section */
+        .page-hero {
+            background: linear-gradient(90deg, #d2e0d5 0%, #f9f1eb 50%, #f6e3d5 100%);
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .page-hero h1 {
+            font-size: 2.8rem;
+            color: #333;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+        }
+        .page-hero p {
+            color: #666;
+            font-size: 1.1rem;
+            margin: 0;
+        }
+
+        /* Main Content Container */
+        .gallery-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 50px 20px;
+        }
+
+        /* Header Section */
+        .gallery-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .gallery-header h2 {
+            font-size: 2.2rem;
+            margin: 0 0 5px 0;
+            color: #222;
+        }
+        .gallery-subtitle {
+            color: #e87c35;
+            font-size: 1.4rem;
+            margin: 0 0 15px 0;
+            font-weight: 600;
+        }
+        .gallery-header p {
+            color: #666;
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Tabs Section */
+        .tabs-container {
+            display: flex;
+            justify-content: center;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            padding: 5px;
+            margin: 0 auto 40px auto;
+            max-width: 600px;
+        }
+        .tab-btn {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 20px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .tab-btn:hover {
+            color: #e87c35;
+        }
+        .tab-btn.active {
+            background-color: #fff;
+            color: #222;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        /* Gallery Card */
+        .gallery-card {
+            background: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            border: 1px solid #f0f0f0;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+            animation: fadeIn 0.5s ease;
+        }
+        .gallery-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Image & Badge */
+        .card-image-wrap {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+        .card-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .gallery-card:hover .card-image-wrap img {
+            transform: scale(1.05);
+        }
+        .rating-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(4px);
+        }
+        .rating-badge i { color: #ffd700; font-size: 0.75rem; }
+        
+        /* Video Icon overlay */
+        .video-play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255,255,255,0.8);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #e87c35;
+            font-size: 1.5rem;
+            display: none;
+        }
+        .gallery-card[data-category="videos"] .video-play-icon {
+            display: flex;
+        }
+
+        /* Card Content */
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        .card-title {
+            margin: 0;
+            font-size: 1.1rem;
+            color: #222;
+            font-weight: 700;
+        }
+        .card-subtitle-hi {
+            color: #e87c35;
+            font-size: 0.9rem;
+            margin: 2px 0 10px 0;
+            font-weight: 500;
+        }
+        .card-location {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 12px;
+        }
+        .card-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* Bottom Upload CTA */
+        .upload-cta {
+            background-color: #fff9f5;
+            border: 1px solid #f2ebe4;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .upload-cta h3 {
+            font-size: 1.4rem;
+            color: #222;
+            margin: 0 0 10px 0;
+        }
+        .upload-cta p {
+            color: #666;
+            margin: 0 0 25px 0;
+            font-size: 0.95rem;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .btn-upload-primary {
+            background-color: #e87c35;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-upload-primary:hover { background-color: #d66a25; }
+        .btn-upload-secondary {
+            background-color: #fff;
+            color: #444;
+            border: 1px solid #ccc;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-upload-secondary:hover { border-color: #888; color: #222; }
+
+        /* Footer */
+        .site-footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+        }
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .footer-logo .text-white { color: #fff; }
+        .footer-logo .text-orange { color: #e87c35; }
+        .site-footer p { margin: 5px 0; color: #aaa; }
+        .site-footer .copyright { font-size: 0.85rem; margin-top: 15px; }
+
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; }
+            .nav-links, .nav-actions { display: none; }
+            .tabs-container { flex-direction: column; padding: 10px; }
+            .cta-buttons { flex-direction: column; }
+        }
+        
+        .hidden { display: none !important; }
+    </style>
 </head>
 <body>
     <nav class="navbar" id="navbar">
-        <div class="logo"><a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a></div>
-        <ul class="nav-links">
-            <li><a href="index.html" class="nav-link">होम</a></li>
-            <li><a href="transport.html" class="nav-link active">परिवहन</a></li>
+        <div class="logo">
+            <a href="index.html"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span></a>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" class="nav-link translatable" data-en="Home" data-hi="होम">Home</a></li>
+            <li><a href="explore.html" class="nav-link translatable" data-en="Explore" data-hi="अन्वेषण">Explore</a></li>
+            <li><a href="plan-trip.html" class="nav-link translatable" data-en="Plan Trip" data-hi="यात्रा योजना">Plan Trip</a></li>
+            <li><a href="festivals.html" class="nav-link translatable" data-en="Festivals" data-hi="त्योहार">Festivals</a></li>
+            <li><a href="gallery.html" class="nav-link active translatable" data-en="Gallery" data-hi="गैलरी">Gallery</a></li>
+            <li><a href="transport.html" class="nav-link translatable" data-en="Transport" data-hi="परिवहन">Transport</a></li>
+            <li><a href="help.html" class="nav-link translatable" data-en="Help" data-hi="सहायता">Help</a></li>
+            <li><a href="contact.html" class="nav-link translatable" data-en="Contact" data-hi="संपर्क">Contact</a></li>
         </ul>
-        <button type="button" class="nav-toggle" id="navToggle"><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span></button>
-        <div class="nav-actions" id="navActions"><a href="login.html" class="sign-in auth-link">Sign In</a><a href="signup.html" class="btn btn-green auth-link">Sign Up</a></div>
+        <div class="nav-actions" id="navActions">
+            <button class="lang-toggle" id="langToggleBtn"><i class="fas fa-globe"></i> <span id="lang-text">हिंदी</span></button>
+            <a href="login.html" class="auth-link translatable" data-en="Sign In" data-hi="लॉग इन">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link translatable" data-en="Sign Up" data-hi="साइन अप">Sign Up</a>
+        </div>
     </nav>
-    <div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
-    <div class="nav-drawer" id="navDrawer">
-        <div class="nav-drawer-header"><span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span><button type="button" class="nav-drawer-close" id="navDrawerClose">X</button></div>
-        <ul class="nav-drawer-links"><li><a href="index.html" class="drawer-link">Home</a></li><li><a href="transport.html" class="drawer-link">Transport</a></li></ul>
-    </div>
-    <main class="page-main">
-        <section class="page-hero page-hero-short"><h1>Transport</h1><p>How to reach Bastar</p></section>
-        <section class="content-section">
-            <div class="transport-options">
-                <div class="transport-card"><i class="fas fa-plane"></i><h3>By Air</h3><p>Raipur Airport 250 km. Taxis and buses.</p></div>
-                <div class="transport-card"><i class="fas fa-train"></i><h3>By Rail</h3><p>Jagdalpur main railhead.</p></div>
-                <div class="transport-card"><i class="fas fa-bus"></i><h3>By Road</h3><p>Connected from Raipur.</p></div>
+
+    <main>
+        <section class="page-hero">
+            <h1 class="translatable" data-en="Gallery" data-hi="गैलरी">Gallery</h1>
+            <p class="translatable" data-en="Visual stories of Bastar's natural beauty, culture, and craftsmanship" data-hi="बस्तर की प्राकृतिक सुंदरता, संस्कृति और शिल्प कौशल की दृश्य कहानियां">Visual stories of Bastar's natural beauty, culture, and craftsmanship</p>
+        </section>
+
+        <section class="gallery-container">
+            <div class="gallery-header">
+                <h2 class="translatable" data-en="Bastar Gallery" data-hi="बस्तर गैलरी">Bastar Gallery</h2>
+                <h3 class="gallery-subtitle translatable" data-en="Visual Journey" data-hi="एक दृश्य यात्रा">Visual Journey</h3>
+                <p class="translatable" data-en="Discover the visual stories of Bastar through our curated collection of photos, videos, and traditional handicrafts." data-hi="फोटो, वीडियो और पारंपरिक हस्तशिल्प के हमारे क्यूरेटेड संग्रह के माध्यम से बस्तर की दृश्य कहानियों की खोज करें।">Discover the visual stories of Bastar through our curated collection of photos, videos, and traditional handicrafts.</p>
             </div>
+
+            <div class="tabs-container">
+                <button class="tab-btn active translatable" data-filter="photos" data-en="Photos" data-hi="तस्वीरें"><i class="far fa-image"></i> Photos</button>
+                <button class="tab-btn translatable" data-filter="videos" data-en="Videos" data-hi="वीडियो"><i class="far fa-play-circle"></i> Videos</button>
+                <button class="tab-btn translatable" data-filter="handicrafts" data-en="Handicrafts" data-hi="हस्तशिल्प"><i class="fas fa-hammer"></i> Handicrafts</button>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                
+                <div class="gallery-card" data-category="photos">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1621682333008-0130db99806e?w=600&q=80" alt="Chitrakote Waterfall">
+                        <div class="rating-badge"><i class="fas fa-star"></i> 4.8</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title translatable" data-en="Chitrakote Waterfall" data-hi="चित्रकोट जलप्रपात">Chitrakote Waterfall</h3>
+                        <p class="card-subtitle-hi translatable" data-en="The Niagara of India" data-hi="भारत का नियाग्रा">The Niagara of India</p>
+                        <div class="card-location"><i class="fas fa-map-marker-alt"></i> <span class="translatable" data-en="Bastar" data-hi="बस्तर">Bastar</span></div>
+                        <p class="card-desc translatable" data-en="The Niagara of India in all its glory." data-hi="भारत का नियाग्रा अपनी पूरी महिमा में।">The Niagara of India in all its glory.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="photos">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?w=600&q=80" alt="Danteshwari Temple">
+                        <div class="rating-badge"><i class="fas fa-star"></i> 4.9</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title translatable" data-en="Danteshwari Temple" data-hi="दंतेश्वरी मंदिर">Danteshwari Temple</h3>
+                        <p class="card-subtitle-hi translatable" data-en="Ancient Shrine" data-hi="प्राचीन तीर्थ">Ancient Shrine</p>
+                        <div class="card-location"><i class="fas fa-map-marker-alt"></i> <span class="translatable" data-en="Dantewada" data-hi="दंतेवाड़ा">Dantewada</span></div>
+                        <p class="card-desc translatable" data-en="Ancient shrine of the goddess Danteshwari." data-hi="देवी दंतेश्वरी का प्राचीन मंदिर।">Ancient shrine of the goddess Danteshwari.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="videos">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1542640244-7e672d6cef4e?w=600&q=80" alt="Kanger Valley">
+                        <div class="rating-badge"><i class="fas fa-star"></i> 4.7</div>
+                        <div class="video-play-icon"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title translatable" data-en="Kanger Valley Tour" data-hi="कांगेर घाटी का दौरा">Kanger Valley Tour</h3>
+                        <p class="card-subtitle-hi translatable" data-en="National Park" data-hi="राष्ट्रीय उद्यान">National Park</p>
+                        <div class="card-location"><i class="fas fa-map-marker-alt"></i> <span class="translatable" data-en="Jagdalpur" data-hi="जगदलपुर">Jagdalpur</span></div>
+                        <p class="card-desc translatable" data-en="Pristine national park with diverse wildlife." data-hi="विविध वन्यजीवों के साथ प्राचीन राष्ट्रीय उद्यान।">Pristine national park with diverse wildlife.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="photos">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1596423735880-5c6a5bb1fb21?w=600&q=80" alt="Barsur Temples">
+                        <div class="rating-badge"><i class="fas fa-star"></i> 4.6</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title translatable" data-en="Barsur Temples" data-hi="बारसूर मंदिर">Barsur Temples</h3>
+                        <p class="card-subtitle-hi translatable" data-en="Ancient Architecture" data-hi="प्राचीन वास्तुकला">Ancient Architecture</p>
+                        <div class="card-location"><i class="fas fa-map-marker-alt"></i> <span class="translatable" data-en="Barsur" data-hi="बारसूर">Barsur</span></div>
+                        <p class="card-desc translatable" data-en="Land of 147 ancient temples." data-hi="147 प्राचीन मंदिरों की भूमि।">Land of 147 ancient temples.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="videos">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80" alt="Tribal Village">
+                        <div class="rating-badge"><i class="fas fa-star"></i> 4.8</div>
+                        <div class="video-play-icon"><i class="fas fa-play"></i></div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title translatable" data-en="Tribal Village Life" data-hi="आदिवासी गांव का जीवन">Tribal Village Life</h3>
+                        <p class="card-subtitle-hi translatable" data-en="Local Culture" data-hi="स्थानीय संस्कृति">Local Culture</p>
+                        <div class="card-location"><i class="fas fa-map-marker-alt"></i> <span class="translatable" data-en="Dantewada" data-hi="दंतेवाड़ा">Dantewada</span></div>
+                        <p class="card-desc translatable" data-en="Traditional Gond village life documentation." data-hi="पारंपरिक गोंड गांव के जीवन का दस्तावेजीकरण।">Traditional Gond village life documentation.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-card" data-category="handicrafts">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&q=80" alt="Bell Metal Art">
+                        <div class="rating-badge"><i class="fas fa-star"></i> 4.9</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title translatable" data-en="Dhokra Art (Bell Metal)" data-hi="ढोकरा कला (बेल मेटल)">Dhokra Art (Bell Metal)</h3>
+                        <p class="card-subtitle-hi translatable" data-en="Ancient Casting" data-hi="प्राचीन ढलाई">Ancient Casting</p>
+                        <div class="card-location"><i class="fas fa-map-marker-alt"></i> <span class="translatable" data-en="Kondagaon" data-hi="कोंडागांव">Kondagaon</span></div>
+                        <p class="card-desc translatable" data-en="Ancient lost-wax casting technique unique to Bastar." data-hi="बस्तर की अद्वितीय प्राचीन 'लॉस्ट-वैक्स' ढलाई तकनीक।">Ancient lost-wax casting technique unique to Bastar.</p>
+                    </div>
+                </div>
+                
+                 <div class="gallery-card" data-category="handicrafts">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1603048297172-c92544798d5e?w=600&q=80" alt="Terracotta">
+                        <div class="rating-badge"><i class="fas fa-star"></i> 4.7</div>
+                    </div>
+                    <div class="card-content">
+                        <h3 class="card-title translatable" data-en="Bastar Terracotta" data-hi="बस्तर टेराकोटा">Bastar Terracotta</h3>
+                        <p class="card-subtitle-hi translatable" data-en="Clay Craft" data-hi="मिट्टी का शिल्प">Clay Craft</p>
+                        <div class="card-location"><i class="fas fa-map-marker-alt"></i> <span class="translatable" data-en="Narayanpur" data-hi="नारायणपुर">Narayanpur</span></div>
+                        <p class="card-desc translatable" data-en="Intricate clay elephants and tribal deities." data-hi="जटिल मिट्टी के हाथी और आदिवासी देवता।">Intricate clay elephants and tribal deities.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="upload-cta">
+                <h3 class="translatable" data-en="Share Your Bastar Moments" data-hi="अपने बस्तर के पल साझा करें">Share Your Bastar Moments</h3>
+                <p class="translatable" data-en="Upload your photos and videos to inspire other travelers." data-hi="अन्य यात्रियों को प्रेरित करने के लिए अपनी तस्वीरें और वीडियो अपलोड करें।">Upload your photos and videos to inspire other travelers.</p>
+                <div class="cta-buttons">
+                    <button class="btn-upload-primary translatable" data-en="Upload Photos" data-hi="तस्वीरें अपलोड करें"><i class="fas fa-upload"></i> Upload Photos</button>
+                    <button class="btn-upload-secondary translatable" data-en="Submit Video" data-hi="वीडियो जमा करें"><i class="fas fa-video"></i> Submit Video</button>
+                </div>
+            </div>
+
         </section>
     </main>
-    <footer class="site-footer"><div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div><p>Feel Bastar, Explore Beyond</p><p class="copyright">2024 ChalgunbeBastar.com</p></footer>
-    <script src="js/auth.js"></script>
-    <script src="js/components.js"></script>
+
+    <footer class="site-footer">
+        <div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div>
+        <p class="translatable" data-en="Feel Bastar, Explore Beyond" data-hi="बस्तर को महसूस करें, आगे अन्वेषण करें">Feel Bastar, Explore Beyond</p>
+        <p class="copyright">© 2024 ChalgunbeBastar.com</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // --- TRANSLATION LOGIC ---
+            let currentLang = 'en';
+            const langToggleBtn = document.getElementById('langToggleBtn');
+            const langTextSpan = document.getElementById('lang-text');
+            const translatableElements = document.querySelectorAll('.translatable');
+
+            if(langToggleBtn) {
+                langToggleBtn.addEventListener('click', function() {
+                    // Toggle language state
+                    currentLang = currentLang === 'en' ? 'hi' : 'en';
+                    
+                    // Update Button Text
+                    langTextSpan.innerText = currentLang === 'en' ? 'हिंदी' : 'English';
+                    
+                    // Update all text content based on the data attributes
+                    translatableElements.forEach(el => {
+                        const newText = el.getAttribute(`data-${currentLang}`);
+                        if(newText) {
+                            // If it has an icon (like buttons), preserve it
+                            if(el.querySelector('i')) {
+                                const iconHTML = el.querySelector('i').outerHTML;
+                                el.innerHTML = `${iconHTML} ${newText}`;
+                            } else {
+                                el.innerText = newText;
+                            }
+                        }
+                    });
+                });
+            }
+            
+            // --- TAB FILTERING LOGIC ---
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const galleryCards = document.querySelectorAll('.gallery-card');
+
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    // Get the filter category
+                    const filterValue = this.getAttribute('data-filter');
+
+                    // Loop through cards and show/hide based on category
+                    galleryCards.forEach(card => {
+                        const category = card.getAttribute('data-category');
+                        
+                        // Show all or filter
+                        if (filterValue === 'all' || category === filterValue) {
+                            card.classList.remove('hidden');
+                            // Add a small animation effect
+                            card.style.animation = 'none';
+                            card.offsetHeight; /* trigger reflow */
+                            card.style.animation = 'fadeIn 0.5s ease';
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+            
+            // Trigger initial click
+            document.querySelector('.tab-btn[data-filter="photos"]').click();
+        });
+    </script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport - Chalgunbe Bastar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Base Styles --- */
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfbf8;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* --- Navbar Styles --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 50px;
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo a {
+            text-decoration: none;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        .text-green { color: #2e7d32; }
+        .text-orange { color: #e87c35; }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+        .nav-link {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        .nav-link:hover { color: #e87c35; }
+        .nav-link.active {
+            background-color: #fff0e6;
+            color: #e87c35;
+        }
+        
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+        .lang-toggle { background: none; border: none; cursor: pointer; color: #555; font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 5px; }
+        .auth-link { text-decoration: none; color: #555; font-weight: 500; font-size: 0.9rem; }
+        .btn-green { background-color: #2e7d32; color: white; padding: 8px 20px; border-radius: 6px; }
+        .nav-toggle { display: none; background: none; border: none; cursor: pointer; }
+        
+        /* --- Transport Hero Section --- */
+        .transport-hero {
+            background: linear-gradient(to right, #e8ede4, #f8efe6);
+            padding: 80px 20px 60px;
+            text-align: center;
+        }
+        .transport-hero h1 { font-size: 2.8rem; color: #333; margin-bottom: 10px; font-weight: 700;}
+        .transport-hero p { color: #666; font-size: 1.1rem; margin: 0;}
+
+        /* --- Transport Services Section --- */
+        .services-section { padding: 60px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.2rem; color: #333; margin-bottom: 5px; font-weight: 700; }
+        .section-header h3 { font-size: 1.4rem; color: #e67e22; margin-bottom: 15px; font-weight: 600; }
+        .section-header p { color: #666; max-width: 600px; margin: 0 auto; line-height: 1.6; }
+
+        /* --- Vehicle Grid & Cards --- */
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .vehicle-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            position: relative;
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .vehicle-card:hover { transform: translateY(-5px); }
+        
+        .card-badge { position: absolute; top: 20px; left: 20px; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .badge-economy { background: #e8f5e9; color: #2e7d32; }
+        .badge-adventure { background: #fff3e0; color: #e65100; }
+        .badge-premium { background: #f3e5f5; color: #7b1fa2; }
+        .badge-comfort { background: #e3f2fd; color: #1565c0; }
+        .badge-group { background: #fff8e1; color: #f57f17; }
+        
+        .card-rating { position: absolute; top: 20px; right: 20px; background: #333; color: #fff; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; display: flex; align-items: center; gap: 4px; }
+        .card-rating i { color: #ffca28; }
+
+        .vehicle-img { width: 100%; height: 180px; object-fit: contain; margin: 30px 0 15px; }
+        
+        .vehicle-title { font-size: 1.2rem; color: #333; margin-bottom: 2px; font-weight: bold; }
+        .vehicle-subtitle { font-size: 1rem; color: #e67e22; margin-bottom: 10px; }
+        .vehicle-desc { font-size: 0.9rem; color: #666; margin-bottom: 20px; flex-grow: 1; }
+
+        .vehicle-details { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 0.9rem; color: #444; }
+        .vehicle-details i { color: #e67e22; width: 16px; margin-right: 5px; }
+        .price-text { font-weight: bold; color: #333; }
+        .driver-rating { color: #ff9800; font-size: 0.8rem; }
+
+        .vehicle-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0 20px; }
+        .v-tag { background: #8b5a2b; color: #fff; padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; }
+
+        .btn-book { background: #f28500; color: #fff; border: none; width: 100%; padding: 12px; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background 0.3s; margin-top: auto;}
+        .btn-book:hover { background: #d67100; }
+
+        /* --- Features Row --- */
+        .features-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); margin-bottom: 60px; text-align: center; }
+        .feature-icon { width: 50px; height: 50px; background: #fff3e0; color: #e67e22; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin: 0 auto 15px; }
+        .feature-title { font-weight: bold; color: #333; margin-bottom: 8px; font-size: 1rem; }
+        .feature-desc { font-size: 0.85rem; color: #777; line-height: 1.4; }
+
+        /* --- Help Box --- */
+        .help-box { background: #faebd7; max-width: 800px; margin: 0 auto; padding: 40px; border-radius: 12px; text-align: center; }
+        .help-box h3 { font-size: 1.5rem; color: #333; margin-bottom: 10px; }
+        .help-box p { color: #555; margin-bottom: 25px; }
+        .help-buttons { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; }
+        .btn-call { background: #f28500; color: #fff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; }
+        .btn-call:hover { background: #d67100; }
+        .btn-outline-dark { background: #fff; color: #333; border: 1px solid #ccc; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; transition: all 0.2s;}
+        .btn-outline-dark:hover { border-color: #333; }
+
+        /* Footer */
+        .site-footer { background-color: #222; color: #fff; text-align: center; padding: 30px 20px; margin-top: 50px; }
+        .footer-logo { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; }
+        .site-footer p { margin: 5px 0; color: #aaa; }
+        .copyright { font-size: 0.85rem; margin-top: 15px; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 20px; }
+            .nav-links, .nav-actions { display: none; }
+            .nav-toggle { display: block; font-size: 1.5rem;}
+            .features-row { grid-template-columns: repeat(2, 1fr); }
+            .transport-hero h1 { font-size: 2.2rem; }
+        }
+        @media (max-width: 480px) {
+            .features-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="logo">
+            <a href="index.html">
+                <span class="text-green">Ch</span><span class="text-orange">लगुंबे बस्तर</span>
+            </a>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link translatable" data-en="Home" data-hi="होम">Home</a></li>
+            <li><a href="explore.html" class="nav-link translatable" data-en="Explore" data-hi="अन्वेषण">Explore</a></li>
+            <li><a href="plan-trip.html" class="nav-link translatable" data-en="Plan Trip" data-hi="यात्रा योजना">Plan Trip</a></li>
+            <li><a href="festivals.html" class="nav-link translatable" data-en="Festivals" data-hi="त्योहार">Festivals</a></li>
+            <li><a href="gallery.html" class="nav-link translatable" data-en="Gallery" data-hi="गैलरी">Gallery</a></li>
+            <li><a href="transport.html" class="nav-link active translatable" data-en="Transport" data-hi="परिवहन">Transport</a></li>
+            <li><a href="help.html" class="nav-link translatable" data-en="Help" data-hi="सहायता">Help</a></li>
+            <li><a href="contact.html" class="nav-link translatable" data-en="Contact" data-hi="संपर्क">Contact</a></li>
+        </ul>
+        <button type="button" class="nav-toggle" id="navToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-actions" id="navActions">
+            <button class="lang-toggle" id="langToggleBtn"><i class="fas fa-globe"></i> <span id="lang-text">हिंदी</span></button>
+            <a href="login.html" class="sign-in auth-link translatable" data-en="Sign In" data-hi="लॉग इन">Sign In</a>
+            <a href="signup.html" class="btn btn-green auth-link translatable" data-en="Sign Up" data-hi="साइन अप">Sign Up</a>
+        </div>
+    </nav>
+
+    <main class="page-main">
+        <section class="transport-hero">
+            <h1 class="translatable" data-en="Transport" data-hi="परिवहन">Transport</h1>
+            <p class="translatable" data-en="Reliable and comfortable transportation options for your Bastar journey" data-hi="आपकी बस्तर यात्रा के लिए विश्वसनीय और आरामदायक परिवहन विकल्प">Reliable and comfortable transportation options for your Bastar journey</p>
+        </section>
+        
+        <section class="services-section">
+            <div class="section-header">
+                <h2 class="translatable" data-en="Transport Services" data-hi="परिवहन सेवाएं">Transport Services</h2>
+                <h3 class="translatable" data-en="Travel with ease" data-hi="सुविधाजनक यात्रा">Travel with ease</h3>
+                <p class="translatable" data-en="Book reliable and comfortable transportation for your Bastar journey. From auto rickshaws to luxury SUVs, we have options for every need and budget." data-hi="अपनी बस्तर यात्रा के लिए विश्वसनीय और आरामदायक परिवहन बुक करें। ऑटो रिक्शा से लेकर लक्जरी एसयूवी तक, हमारे पास हर ज़रूरत और बजट के विकल्प हैं।">Book reliable and comfortable transportation for your Bastar journey. From auto rickshaws to luxury SUVs, we have options for every need and budget.</p>
+            </div>
+
+            <div class="vehicle-grid">
+                
+                <div class="vehicle-card">
+                    <span class="card-badge badge-economy translatable" data-en="Economy" data-hi="इकॉनमी">Economy</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.2</span>
+                    <img src="https://auto.hindustantimes.com/cms-images/marutisuzuki_eeco/images/exterior_marutisuzuki-eeco_front-right-side_930x620.jpg" alt="Van" class="vehicle-img" onerror="this.src='https://cdn.motorfloor.com/vehicles/bus/tata-magic-ev.jpg'">
+                    <div class="vehicle-title translatable" data-en="Van" data-hi="वैन">Van</div>
+                    <div class="vehicle-subtitle translatable" data-en="City Travel" data-hi="शहर की यात्रा">City Travel</div>
+                    <div class="vehicle-desc translatable" data-en="Perfect for short distance city travel" data-hi="कम दूरी की शहर यात्रा के लिए उत्तम">Perfect for short distance city travel</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> <span class="translatable" data-en="5 passengers" data-hi="5 यात्री">5 passengers</span></span>
+                        <span class="price-text translatable" data-en="₹10-15 per km" data-hi="₹10-15 प्रति किमी">₹10-15 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> <span class="translatable" data-en="24/7" data-hi="24/7">24/7</span></span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> <span class="translatable" data-en="Driver: 4.8" data-hi="ड्राइवर: 4.8">Driver: 4.8</span></span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag translatable" data-en="Local transport" data-hi="स्थानीय परिवहन">Local transport</span>
+                        <span class="v-tag translatable" data-en="City rides" data-hi="शहर की सवारी">City rides</span>
+                        <span class="v-tag translatable" data-en="Quick booking" data-hi="त्वरित बुकिंग">Quick booking</span>
+                    </div>
+                    <button class="btn-book translatable" data-en="Book Now" data-hi="अभी बुक करें"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-adventure translatable" data-en="Adventure" data-hi="रोमांच">Adventure</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.6</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4eTZHB2aNUIJQjkY_l5WDucgUUK-4yJa7xw&s" alt="Jeep/SUV" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Jeep+Image'">
+                    <div class="vehicle-title translatable" data-en="Jeep/SUV" data-hi="जीप/एसयूवी">Jeep/SUV</div>
+                    <div class="vehicle-subtitle translatable" data-en="Rough Terrain" data-hi="कठिन इलाके">Rough Terrain</div>
+                    <div class="vehicle-desc translatable" data-en="Ideal for adventure trips and rough terrain" data-hi="एडवेंचर ट्रिप और कठिन रास्तों के लिए आदर्श">Ideal for adventure trips and rough terrain</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> <span class="translatable" data-en="6-7 passengers" data-hi="6-7 यात्री">6-7 passengers</span></span>
+                        <span class="price-text translatable" data-en="₹18-25 per km" data-hi="₹18-25 प्रति किमी">₹18-25 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> <span class="translatable" data-en="6 AM - 10 PM" data-hi="सुबह 6 - रात 10">6 AM - 10 PM</span></span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> <span class="translatable" data-en="Driver: 4.4" data-hi="ड्राइवर: 4.4">Driver: 4.4</span></span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag translatable" data-en="4WD capable" data-hi="4WD सक्षम">4WD capable</span>
+                        <span class="v-tag translatable" data-en="Jungle safari" data-hi="जंगल सफारी">Jungle safari</span>
+                        <span class="v-tag translatable" data-en="Mountain roads" data-hi="पहाड़ी सड़कें">Mountain roads</span>
+                    </div>
+                    <button class="btn-book translatable" data-en="Book Now" data-hi="अभी बुक करें"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-premium translatable" data-en="Premium" data-hi="प्रीमियम">Premium</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.7</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI8V62cXcxRDbXCOSFaiaKfiD9RUeqqTsx-A&s" alt="Scorpio/Bolero" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Scorpio+Image'">
+                    <div class="vehicle-title translatable" data-en="Scorpio/Bolero" data-hi="स्कॉर्पियो/बोलेरो">Scorpio/Bolero</div>
+                    <div class="vehicle-subtitle translatable" data-en="Group Tours" data-hi="ग्रुप टूर">Group Tours</div>
+                    <div class="vehicle-desc translatable" data-en="Best for group tours and long distance travel" data-hi="ग्रुप टूर और लंबी दूरी की यात्रा के लिए सर्वश्रेष्ठ">Best for group tours and long distance travel</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> <span class="translatable" data-en="7-8 passengers" data-hi="7-8 यात्री">7-8 passengers</span></span>
+                        <span class="price-text translatable" data-en="₹20-30 per km" data-hi="₹20-30 प्रति किमी">₹20-30 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> <span class="translatable" data-en="24/7" data-hi="24/7">24/7</span></span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> <span class="translatable" data-en="Driver: 4.5" data-hi="ड्राइवर: 4.5">Driver: 4.5</span></span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag translatable" data-en="Group travel" data-hi="समूह यात्रा">Group travel</span>
+                        <span class="v-tag translatable" data-en="Luggage space" data-hi="सामान के लिए जगह">Luggage space</span>
+                        <span class="v-tag translatable" data-en="Comfortable seating" data-hi="आरामदायक सीट">Comfortable seating</span>
+                    </div>
+                    <button class="btn-book translatable" data-en="Book Now" data-hi="अभी बुक करें"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-comfort translatable" data-en="Comfort" data-hi="आरामदायक">Comfort</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.5</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnJEm1Td7QWbMdX_feOxnI5XzxCidL--WS5Q&s" alt="Taxi/Sedan" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Taxi+Image'">
+                    <div class="vehicle-title translatable" data-en="Taxi/Sedan" data-hi="टैक्सी/सेडान">Taxi/Sedan</div>
+                    <div class="vehicle-subtitle translatable" data-en="Business Travel" data-hi="व्यावसायिक यात्रा">Business Travel</div>
+                    <div class="vehicle-desc translatable" data-en="Comfortable for small groups and business travel" data-hi="छोटे समूहों और व्यावसायिक यात्रा के लिए आरामदायक">Comfortable for small groups and business travel</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> <span class="translatable" data-en="4 passengers" data-hi="4 यात्री">4 passengers</span></span>
+                        <span class="price-text translatable" data-en="₹15-22 per km" data-hi="₹15-22 प्रति किमी">₹15-22 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> <span class="translatable" data-en="24/7" data-hi="24/7">24/7</span></span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> <span class="translatable" data-en="Driver: 4.3" data-hi="ड्राइवर: 4.3">Driver: 4.3</span></span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag translatable" data-en="Comfortable ride" data-hi="आरामदायक सवारी">Comfortable ride</span>
+                        <span class="v-tag translatable" data-en="AC" data-hi="एसी">AC</span>
+                        <span class="v-tag translatable" data-en="Airport transfer" data-hi="हवाई अड्डा स्थानांतरण">Airport transfer</span>
+                    </div>
+                    <button class="btn-book translatable" data-en="Book Now" data-hi="अभी बुक करें"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-group translatable" data-en="Group" data-hi="समूह">Group</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.3</span>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMdkfQKIOvHqmLlLgBokOiyzN1JV1uj9Ue-Q&s" alt="Bus/Minibus" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Bus+Image'">
+                    <div class="vehicle-title translatable" data-en="Bus/Minibus" data-hi="बस/मिनिबस">Bus/Minibus</div>
+                    <div class="vehicle-subtitle translatable" data-en="Extended Tours" data-hi="विस्तारित यात्राएं">Extended Tours</div>
+                    <div class="vehicle-desc translatable" data-en="Perfect for large groups and extended tours" data-hi="बड़े समूहों और लंबी यात्राओं के लिए उत्तम">Perfect for large groups and extended tours</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> <span class="translatable" data-en="12-20 passengers" data-hi="12-20 यात्री">12-20 passengers</span></span>
+                        <span class="price-text translatable" data-en="₹25-40 per km" data-hi="₹25-40 प्रति किमी">₹25-40 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> <span class="translatable" data-en="6 AM - 11 PM" data-hi="सुबह 6 - रात 11">6 AM - 11 PM</span></span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> <span class="translatable" data-en="Driver: 4.1" data-hi="ड्राइवर: 4.1">Driver: 4.1</span></span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag translatable" data-en="Large groups" data-hi="बड़े समूह">Large groups</span>
+                        <span class="v-tag translatable" data-en="Tour packages" data-hi="टूर पैकेज">Tour packages</span>
+                        <span class="v-tag translatable" data-en="Long distance" data-hi="लंबी दूरी">Long distance</span>
+                    </div>
+                    <button class="btn-book translatable" data-en="Book Now" data-hi="अभी बुक करें"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+                <div class="vehicle-card">
+                    <span class="card-badge badge-economy translatable" data-en="Economy" data-hi="इकॉनमी">Economy</span>
+                    <span class="card-rating"><i class="fas fa-star"></i> 4.1</span>
+                    <img src="https://content.jdmagicbox.com/v2/comp/jaipur/u9/0141px141.x141.240418205214.k9u9/catalogue/freedo-hans-vihar-jaipur-bike-on-rent-y8nxo2a0w5-250.jpg" alt="Bike/Motorcycle" class="vehicle-img" onerror="this.src='https://via.placeholder.com/300x180?text=Bike+Image'">
+                    <div class="vehicle-title translatable" data-en="Bike/Motorcycle" data-hi="बाइक/मोटरसाइकिल">Bike/Motorcycle</div>
+                    <div class="vehicle-subtitle translatable" data-en="Short Trips" data-hi="छोटी यात्राएं">Short Trips</div>
+                    <div class="vehicle-desc translatable" data-en="Fast and economical for short trips" data-hi="छोटी यात्राओं के लिए तेज़ और किफायती">Fast and economical for short trips</div>
+                    <div class="vehicle-details">
+                        <span><i class="fas fa-user-friends"></i> <span class="translatable" data-en="2 passengers" data-hi="2 यात्री">2 passengers</span></span>
+                        <span class="price-text translatable" data-en="₹8-12 per km" data-hi="₹8-12 प्रति किमी">₹8-12 per km</span>
+                    </div>
+                    <div class="vehicle-details">
+                        <span><i class="far fa-clock"></i> <span class="translatable" data-en="6 AM - 10 PM" data-hi="सुबह 6 - रात 10">6 AM - 10 PM</span></span>
+                        <span class="driver-rating"><i class="fas fa-star"></i> <span class="translatable" data-en="Driver: 3.9" data-hi="ड्राइवर: 3.9">Driver: 3.9</span></span>
+                    </div>
+                    <div class="vehicle-tags">
+                        <span class="v-tag translatable" data-en="Quick travel" data-hi="त्वरित यात्रा">Quick travel</span>
+                        <span class="v-tag translatable" data-en="Traffic easy" data-hi="ट्रैफिक में आसान">Traffic easy</span>
+                        <span class="v-tag translatable" data-en="Economical" data-hi="किफायती">Economical</span>
+                    </div>
+                    <button class="btn-book translatable" data-en="Book Now" data-hi="अभी बुक करें"><i class="fas fa-check-circle"></i> Book Now</button>
+                </div>
+
+            </div>
+
+            <div class="features-row">
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <div class="feature-title translatable" data-en="Verified Drivers" data-hi="सत्यापित ड्राइवर">Verified Drivers</div>
+                    <div class="feature-desc translatable" data-en="All drivers are background verified and licensed" data-hi="सभी ड्राइवर पृष्ठभूमि सत्यापित और लाइसेंस प्राप्त हैं">All drivers are background verified and licensed</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="far fa-clock"></i></div>
+                    <div class="feature-title translatable" data-en="24/7 Available" data-hi="24/7 उपलब्ध">24/7 Available</div>
+                    <div class="feature-desc translatable" data-en="Round the clock booking and support service" data-hi="चौबीसों घंटे बुकिंग और सहायता सेवा">Round the clock booking and support service</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-gas-pump"></i></div>
+                    <div class="feature-title translatable" data-en="Fuel Included" data-hi="ईंधन शामिल">Fuel Included</div>
+                    <div class="feature-desc translatable" data-en="No hidden charges, fuel costs included in fare" data-hi="कोई छिपे हुए शुल्क नहीं, किराये में ईंधन लागत शामिल है">No hidden charges, fuel costs included in fare</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                    <div class="feature-title translatable" data-en="Digital Receipt" data-hi="डिजिटल रसीद">Digital Receipt</div>
+                    <div class="feature-desc translatable" data-en="Get instant PDF receipts for all bookings" data-hi="सभी बुकिंग के लिए तुरंत पीडीएफ रसीद प्राप्त करें">Get instant PDF receipts for all bookings</div>
+                </div>
+            </div>
+
+            <div class="help-box">
+                <h3 class="translatable" data-en="Need Help with Booking?" data-hi="बुकिंग में सहायता चाहिए?">Need Help with Booking?</h3>
+                <p class="translatable" data-en="Call our transport helpline for immediate assistance or custom requirements" data-hi="तत्काल सहायता या कस्टम आवश्यकताओं के लिए हमारी परिवहन हेल्पलाइन पर कॉल करें">Call our transport helpline for immediate assistance or custom requirements</p>
+                <div class="help-buttons">
+                    <a href="tel:+917782226677" class="btn-call translatable" data-en="Call +91-7782-226677" data-hi="कॉल करें +91-7782-226677"><i class="fas fa-phone-alt"></i> Call +91-7782-226677</a>
+                    <a href="#" class="btn-outline-dark translatable" data-en="Book Multi-Day Trip" data-hi="मल्टी-डे ट्रिप बुक करें"><i class="far fa-calendar-alt"></i> Book Multi-Day Trip</a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-logo"><span class="text-white">Ch</span><span class="text-orange">लगुंबे बस्तर</span></div>
+        <p class="translatable" data-en="Feel Bastar, Explore Beyond" data-hi="बस्तर को महसूस करें, आगे अन्वेषण करें">Feel Bastar, Explore Beyond</p>
+        <p class="copyright">© 2024 ChalgunbeBastar.com</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentLang = 'en';
+            const langToggleBtn = document.getElementById('langToggleBtn');
+            const langTextSpan = document.getElementById('lang-text');
+            const translatableElements = document.querySelectorAll('.translatable');
+
+            if(langToggleBtn) {
+                langToggleBtn.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default link behavior if it's an <a> tag
+                    
+                    // Toggle language state
+                    currentLang = currentLang === 'en' ? 'hi' : 'en';
+                    
+                    // Update Button Text
+                    langTextSpan.innerText = currentLang === 'en' ? 'हिंदी' : 'English';
+                    
+                    // Update all text content based on the data attributes
+                    translatableElements.forEach(el => {
+                        const newText = el.getAttribute(`data-${currentLang}`);
+                        if(newText) {
+                            // If it has an icon inside (like buttons or nav links), preserve it
+                            if(el.querySelector('i')) {
+                                const iconHTML = el.querySelector('i').outerHTML;
+                                el.innerHTML = `${iconHTML} ${newText}`;
+                            } else {
+                                el.innerText = newText;
+                            }
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

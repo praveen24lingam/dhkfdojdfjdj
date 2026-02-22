@@ -81,7 +81,43 @@
         if (confirmBtn && overlay) {
             confirmBtn.addEventListener('click', function() {
                 overlay.classList.remove('is-open');
-                if (window.showToast) showToast('Booking confirmed! Thank you.');
+                // Create booking record if supabase is available and user is logged in
+                (async function(){
+                    try {
+                        if (window.supabaseClient && window.authFunctions) {
+                            const auth = await window.authFunctions.getAuthStatus();
+                            const form = document.getElementById('bookingForm');
+                            const visitors = form ? form.querySelector('[name="visitors"]').value : 1;
+                            const start = form ? form.querySelector('[name="date"]').value : null;
+                            const payload = {
+                                user_id: auth.user?.id || null,
+                                location_id: getQueryId(),
+                                start_date: start || null,
+                                guests: visitors || 1,
+                                status: 'inquiry',
+                                status_timeline: JSON.stringify([{ status: 'inquiry', timestamp: new Date().toISOString() }]),
+                                metadata: JSON.stringify({ visitors })
+                            };
+                            // insert booking
+                            const { data: booking, error } = await window.supabaseClient.from('bookings').insert([payload]).select().single();
+                            if (error) throw error;
+
+                            // create activity log for user
+                            if (auth.isAuthenticated) {
+                                await window.supabaseClient.from('activity_log').insert([{ user_id: auth.user.id, action: 'Created booking request', meta: { booking_id: booking.id } }]);
+                            }
+
+                            // notify platform/admins/agents - create a notification (agent_id may be null)
+                            await window.supabaseClient.from('notifications').insert([{ user_id: auth.user?.id || null, actor_id: auth.user?.id || null, type: 'booking_created', message: 'Booking request created', data: { booking_id: booking.id } }]);
+
+                            if (window.showToast) showToast('Booking request submitted. We will notify you when confirmed.');
+                            return;
+                        }
+                    } catch (err) {
+                        console.error('Failed to create booking:', err);
+                    }
+                    if (window.showToast) showToast('Booking confirmed! Thank you.');
+                })();
             });
         }
         if (closeBtn && overlay) {

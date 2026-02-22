@@ -26,23 +26,43 @@
     <script>
         document.addEventListener('DOMContentLoaded', async function(){
             // Protect the page for agent role
-            const ok = await authFunctions.requireAgentRole();
+            const ok = await requireAgentRole();
             if (!ok) return;
             // Load agent-specific content: bookings and inquiries
             const supabase = window.supabaseClient;
             if (!supabase) return;
             try {
-                const { data: inquiries } = await supabase.from('inquiries').select('*').order('created_at', { ascending: false });
                 const el = document.getElementById('agentContent');
+                // action buttons for approved agents
+                el.innerHTML = `
+                    <div style="display:flex;gap:8px;margin-bottom:12px">
+                        <a class="btn btn-green" href="add-package.html">Add Tour Package</a>
+                        <a class="btn" href="manage-bookings.html">Manage Bookings</a>
+                        <a class="btn" href="agent-reviews.html">Respond to Reviews</a>
+                        <a class="btn" href="add-transport.html">Add Transport Service</a>
+                    </div>
+                    <div id="agentInbox"></div>
+                `;
+
+                // fetch inquiries to show
+                const { data: inquiries } = await supabase.from('inquiries').select('*').order('created_at', { ascending: false });
+                const inbox = document.getElementById('agentInbox');
                 if (!inquiries || inquiries.length === 0) {
-                    el.innerHTML = '<p>No inquiries yet.</p>';
-                    return;
+                    inbox.innerHTML = '<p>No inquiries yet.</p>';
+                } else {
+                    inbox.innerHTML = '<h3>Platform Inquiries</h3>' + inquiries.map(i => `
+                        <div style="padding:12px;border:1px solid #eee;border-radius:8px;margin-bottom:8px;background:#fff;">
+                            <strong>${i.name || 'User'}</strong> <small style="color:#666">(${i.phone || i.user_id || 'guest'})</small>
+                            <p style="margin:6px 0;">${i.message}</p>
+                            <p style="font-size:0.85rem;color:#666">Status: ${i.status}</p>
+                        </div>
+                    `).join('');
                 }
-                el.innerHTML = '<h3>Platform Inquiries</h3>' + inquiries.map(i => `\n                    <div style="padding:12px;border:1px solid #eee;border-radius:8px;margin-bottom:8px;background:#fff;">\n                        <strong>${i.name || 'User'}</strong> <small style="color:#666">(${i.phone || i.user_id || 'guest'})</small>\n                        <p style="margin:6px 0;">${i.message}</p>\n                        <p style="font-size:0.85rem;color:#666">Status: ${i.status}</p>\n                    </div>\n                `).join('');
             } catch (err) {
                 console.error(err);
             }
         });
     </script>
+    <script src="js/agent-dashboard.js"></script>
 </body>
 </html>

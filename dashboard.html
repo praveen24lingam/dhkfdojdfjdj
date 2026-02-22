@@ -82,6 +82,11 @@
                             <span class="sun-icon">☀️</span>
                             <span class="moon-icon">🌙</span>
                         </button>
+                        <button class="btn" id="notifToggle" aria-label="Notifications" style="border:1px solid #eee;padding:8px 10px;border-radius:8px;">🔔 <span id="notifCount" style="font-weight:700;margin-left:6px;display:inline-block"></span></button>
+                        <div id="notifDropdown" class="glass-card" style="display:none;position:absolute;right:40px;top:70px;min-width:260px;z-index:3000;padding:12px;">
+                            <h4 style="margin:0 0 8px 0;font-size:1rem">Notifications</h4>
+                            <div id="notificationList"></div>
+                        </div>
                         <div class="user-menu">
                             <div class="user-avatar" id="userAvatar">
                                 <span id="userInitials">U</span>
@@ -151,6 +156,18 @@
                                 <h3 class="activity-title">Recent Feedback</h3>
                                 <div id="recentFeedback" class="activity-list"></div>
                             </div>
+                            <div class="activity-card glass-card">
+                                <h3 class="activity-title">Upcoming Trips</h3>
+                                <div id="upcomingTrips" class="activity-list"></div>
+                            </div>
+                            <div class="activity-card glass-card">
+                                <h3 class="activity-title">Travel History</h3>
+                                <div id="travelHistory" class="activity-list"></div>
+                            </div>
+                        </div>
+                        <div style="margin-top:24px">
+                            <h3 class="section-title">Activity Log</h3>
+                            <div id="activityLog"></div>
                         </div>
                     </div>
                 </div>

@@ -44,6 +44,42 @@
         });
     }
 
+    // Initialize translation toggle for elements using data-en / data-hi attributes
+    function initTranslation() {
+        // Use capture so this runs before other handlers that may stopPropagation
+        document.addEventListener('click', function(e) {
+            var btn = e.target.closest('.lang-toggle');
+            if (!btn) return;
+            e.preventDefault();
+            e.stopPropagation();
+
+            var current = document.documentElement.getAttribute('data-lang') || 'en';
+            var next = current === 'en' ? 'hi' : 'en';
+            document.documentElement.setAttribute('data-lang', next);
+
+            // Update all translatable elements (prefer explicit data attributes)
+            var els = document.querySelectorAll('[data-en], .translatable');
+            els.forEach(function(el) {
+                var text = el.getAttribute('data-' + next);
+                if (!text) return;
+                // preserve icon markup if present
+                var icon = el.querySelector('i') || el.querySelector('svg');
+                if (icon) {
+                    var iconHTML = icon.outerHTML;
+                    el.innerHTML = iconHTML + ' ' + text;
+                } else {
+                    el.innerText = text;
+                }
+            });
+
+            // Update small lang label if present
+            var langText = document.getElementById('lang-text');
+            if (langText) {
+                langText.innerText = next === 'en' ? 'हिंदी' : 'English';
+            }
+        }, true);
+    }
+
     window.showToast = function(message, type) {
         type = type || 'success';
         var container = document.getElementById('toastContainer');
@@ -63,5 +99,6 @@
     document.addEventListener('DOMContentLoaded', function() {
         initDrawer();
         initAccordion();
+        initTranslation();
     });
 })();
